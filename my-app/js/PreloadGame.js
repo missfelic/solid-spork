@@ -12,9 +12,9 @@ class PreloadGame extends Phaser.Scene {
         this.load.image('trees', 'assets/background/layers/trees.png');
         // Cloud
         this.load.image('clouds', 'assets/background/layers/clouds.png');
-        // Starting Ground
-        this.load.image('start', 'assets/background/layers/start.png');
-        // Plateforms
+        // Log Platforms
+        this.load.image('log', 'assets/ground/log.png');
+        // Grass Platforms
         this.load.image('platforms', 'assets/ground/platform.png');
         // pinkMonster Sprite Sheet
         this.load.spritesheet('pinkMonster', 'assets/pinkMonster/pinkMonsterSprite.png', {
