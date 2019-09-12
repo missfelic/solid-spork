@@ -24,27 +24,17 @@ class PlayGame extends Phaser.Scene {
         this.startPlatform = this.physics.add.staticGroup();
         this.startPlatform.create(this.game.config.width / 2, game.config.height / 1.2, 'log').setScale(0.2).refreshBody();
 
-        // Pushing Log & Grass in to randomPlatforms Array
-        let randomPlatforms = [];
-        for (let i = 0; i < 10; i++) {
-            // Log Platform
-            this.log = this.physics.add.staticGroup();
-            this.log.create(randX(), randY(), 'log').setScale(0.2).refreshBody();
-            this.log.body = true;
-            console.info('Log::', this.log);
+        // Creating Random Platforms Group
+        this.platformGroup = this.physics.add.staticGroup();
 
-            // Grass Platform
-            this.grass = this.physics.add.staticGroup();
-            this.grass.create(randX(), randY(), 'grass').setScale(0.2).refreshBody();
-            this.grass.body = true;
-            console.info('Grass::', this.grass);
+        // Creating 20 Platform in platformGroup
+        for (var i = 0; i < 20; i++) {
+            this.platformGroup.create(randX(), randY(), 'grass').setScale(0.2).refreshBody();
+            this.platformGroup.create(randX(), randY(), 'log').setScale(0.2).refreshBody();
+        }
 
-
-
-            randomPlatforms.push(this.log);
-            randomPlatforms.push(this.grass);
-        };
-        console.log(randomPlatforms);
+        // Console.log (for debugging)
+        console.log('Platform Group::', this.platformGroup);
 
         // Add pinkMonster
         this.pinkMonster = this.physics.add.sprite(game.config.width / 2, game.config.height / 1.2, 'pinkMonster');
@@ -60,15 +50,12 @@ class PlayGame extends Phaser.Scene {
         // Adding Collision With Starting Platform
         this.physics.add.collider(this.pinkMonster, this.startPlatform);
         // Adding Collision With Endless Platforms
-        this.physics.add.collider(this.pinkMonster, this.grass);
-        this.physics.add.collider(this.pinkMonster, this.log);
+        this.physics.add.collider(this.pinkMonster, this.platformGroup);
 
         // Key Inputs To Control The pinkMonster
         this.cursors = this.input.keyboard.createCursorKeys();
 
     }
-
-
 
     update() {
 
