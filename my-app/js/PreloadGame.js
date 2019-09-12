@@ -15,12 +15,17 @@ class PreloadGame extends Phaser.Scene {
         // Log Platforms
         this.load.image('log', 'assets/ground/log.png');
         // Grass Platforms
-        this.load.image('platforms', 'assets/ground/platform.png');
+        this.load.image('grass', 'assets/ground/platform.png');
         // pinkMonster Sprite Sheet
         this.load.spritesheet('pinkMonster', 'assets/pinkMonster/pinkMonsterSprite.png', {
         frameWidth: 32,
         frameHeight: 32
         });
+        // Coins
+        // this.load.spritesheet('coins', 'assets/coin/coin.png', {
+        //     frameWidth: 72,
+        //     frameHeight: 72
+        //     });
         // Title Screen
         this.load.image('titlescreen', 'assets/titlescreen/titlescreen.png');
 
