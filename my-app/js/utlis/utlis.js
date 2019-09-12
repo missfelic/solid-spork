@@ -18,10 +18,4 @@ function randY () {
     return randY;
 }
 
-function checkX(object) {
-    console.log('Objects X::', object.children.entries[0].width)
-}
 
-function checkY(object) {
-    console.log(object.children.entries[0].width)
-}
