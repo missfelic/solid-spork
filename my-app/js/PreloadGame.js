@@ -22,10 +22,19 @@ class PreloadGame extends Phaser.Scene {
         frameHeight: 32
         });
         // Coins
-        // this.load.spritesheet('coins', 'assets/coin/coin.png', {
-        //     frameWidth: 72,
-        //     frameHeight: 72
-        //     });
+        this.load.spritesheet('coins', 'assets/coin/coin.png', {
+            frameWidth: 300,
+            frameHeight: 300
+        });
+        // Collectable Jems
+        // Red Jem
+        this.load.image('redJem', 'assets/gems/gem_1.png');
+        // Green Jem
+        this.load.image('greenJem', 'assets/gems/gem_2.png');
+        // Blue Jem
+        this.load.image('blueJem', 'assets/gems/gem_3.png');
+
+
         // Title Screen
         this.load.image('titlescreen', 'assets/titlescreen/titlescreen.png');
 
