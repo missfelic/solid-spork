@@ -29,9 +29,7 @@ class PlayGame extends Phaser.Scene {
         this.pinkMonster.play('idle');
         
         const defaultPosY = this.game.config.height / 1.1;
-        console.log('defaultPosY', defaultPosY);
         const defaultPosX = this.game.config.width / 2;
-        console.log('defaultPosX', defaultPosX);
 
          // Starting Platform
          this.startPlatform = this.physics.add.staticGroup();
