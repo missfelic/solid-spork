@@ -4,37 +4,17 @@ class PlayGame extends Phaser.Scene {
     }
     create(){
         // Loading Game
-        // Creating Titled Sprites  // Refactor
+        // Adding First Background Sky
         this.sky = this.add.tileSprite(0, 0, game.config.width, game.config.height, "sky");
         // Setting Pivot Point (Left Corner)
         this.sky.setOrigin(0, 0);
-        // Fix Sky (So It Doesn't Move When Camera Moves)
-        this.sky.setScrollFactor(0);
         
-        // Adding Second Background (Sides) // Refactor
+        // Adding Second Background (Sides)
         this.sides = this.add.tileSprite(0, 0, 0, 0, "sides");
         // Setting Pivot Point (Left Corner)
         this.sides.setOrigin(0, 0);
         // Setting Scale
         this.sides.setScale(0.2, 0.2);
-        // Fix Sky (So It Doesn't Move When Camera Moves)
-        this.sides.setScrollFactor(0);
-
-        // Starting Platform
-        this.startPlatform = this.physics.add.staticGroup();
-        this.startPlatform.create(this.game.config.width / 2, game.config.height / 1.2, 'log').setScale(0.2).refreshBody();
-
-        // Creating Random Platforms Group
-        this.platformGroup = this.physics.add.staticGroup();
-
-        // Creating 20 Platform in platformGroup
-        for (var i = 0; i < 20; i++) {
-            this.platformGroup.create(randX(), randY(), 'grass').setScale(0.2).refreshBody();
-            this.platformGroup.create(randX(), randY(), 'log').setScale(0.2).refreshBody();
-        }
-
-        // Console.log (for debugging)
-        console.log('Platform Group::', this.platformGroup);
 
         // Add pinkMonster
         this.pinkMonster = this.physics.add.sprite(game.config.width / 2, game.config.height / 1.2, 'pinkMonster');
@@ -47,38 +27,62 @@ class PlayGame extends Phaser.Scene {
         });
         this.pinkMonster.play('idle');
         
-        // Adding Collision With Starting Platform
-        this.physics.add.collider(this.pinkMonster, this.startPlatform);
-        // Adding Collision With Endless Platforms
-        this.physics.add.collider(this.pinkMonster, this.platformGroup);
+        const defaultPosY = this.game.config.height / 1.1;
+        console.log('defaultPosY', defaultPosY);
+        const defaultPosX = this.game.config.width / 2;
+        console.log('defaultPosX', defaultPosX);
 
-        // Key Inputs To Control The pinkMonster
-        this.cursors = this.input.keyboard.createCursorKeys();
+         // Starting Platform
+         this.startPlatform = this.physics.add.staticGroup();
+         this.startPlatform.create(defaultPosX, defaultPosY, 'log').setScale(0.2).refreshBody();
+
+        // // Creating Random Platforms Group
+        this.simpleLevel = this.physics.add.staticGroup();
+
+        this.simpleLevel.create(100, 620, 'log').setScale(0.2).refreshBody();
+        this.simpleLevel.create(210, 550, 'log').setScale(0.2).refreshBody();
+        this.simpleLevel.create(130, 445, 'log').setScale(0.2).refreshBody();
+        this.simpleLevel.create(100, 345, 'log').setScale(0.2).refreshBody();
+        this.simpleLevel.create(220, 280, 'log').setScale(0.2).refreshBody();
+        this.simpleLevel.create(130, 200, 'log').setScale(0.2).refreshBody();
+        this.simpleLevel.create(210, 100, 'log').setScale(0.2).refreshBody();
+
+        console.log('simpleLevel', this.simpleLevel)
+
+        this.simpleLevel.children.entries.forEach(function(e){
+            console.log('simpleLevel::', e);
+        })
+
+         // Adding Collision With Starting Platform
+         this.physics.add.collider(this.pinkMonster, this.startPlatform);
+
+         // Adding Collision With Platforms
+         // Switch operator? 
+         this.physics.add.collider(this.pinkMonster, this.simpleLevel);
+ 
+         // Key Inputs To Control The pinkMonster
+         this.cursors = this.input.keyboard.createCursorKeys();
 
     }
 
     update() {
 
-        // spawnRandomPlatform(this.log, this.platform);
-        // checkX(this.endlessPlatforms)
-        // checkY(this.endlessPlatforms)
-
         // Keyboard Inputs
+        // Left & Right Controls
         if (this.cursors.left.isDown) {
-            this.pinkMonster.setVelocityX(-160);
+            this.pinkMonster.setVelocityX(-120);
             this.pinkMonster.anims.play('idle', true);
             this.pinkMonster.flipX = true;
         } else if (this.cursors.right.isDown) {
-            this.pinkMonster.setVelocityX(160);
+            this.pinkMonster.setVelocityX(120);
             this.pinkMonster.anims.play('idle', true);
             this.pinkMonster.flipX = false;
         }
 
-        // Check For Collision With Platform
-        if (this.physics.add.collider(this.pinkMonster)){
-            // If Collision - Y ( Bounce )
-            this.pinkMonster.y -= 8;
-        }
+        // Jumping Controls 
+        if (this.cursors.space.isDown && this.pinkMonster.body.touching.down){
+            this.pinkMonster.setVelocityY(-500);
+        } 
 
          // Destroy pinkMonster If pinkMoster Falls Off Screen
          if(this.pinkMonster.y > game.config.height) {
