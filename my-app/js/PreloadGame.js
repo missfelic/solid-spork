@@ -26,13 +26,13 @@ class PreloadGame extends Phaser.Scene {
             frameWidth: 300,
             frameHeight: 300
         });
-        // Collectable Jems
-        // Red Jem
-        this.load.image('redJem', 'assets/gems/gem_1.png');
-        // Green Jem
-        this.load.image('greenJem', 'assets/gems/gem_2.png');
-        // Blue Jem
-        this.load.image('blueJem', 'assets/gems/gem_3.png');
+        // Collectable Gems
+        // Red Gem
+        this.load.image('redGem', 'assets/gems/gem_1.png');
+        // Green Gem
+        this.load.image('greenGem', 'assets/gems/gem_2.png');
+        // Blue Gem
+        this.load.image('blueGem', 'assets/gems/gem_3.png');
 
 
         // Title Screen
