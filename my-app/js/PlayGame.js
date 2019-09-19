@@ -2,6 +2,7 @@ class PlayGame extends Phaser.Scene {
     constructor() {
         super('PlayGame');
     }
+
     create(){
         // Loading Game
         // Adding First Background Sky
@@ -36,9 +37,9 @@ class PlayGame extends Phaser.Scene {
          this.startPlatform = this.physics.add.staticGroup();
          this.startPlatform.create(defaultPosX, defaultPosY, 'log').setScale(0.2).refreshBody();
 
-        // // Creating Random Platforms Group
+        // Creating Random Platforms Group
         this.simpleLevel = this.physics.add.staticGroup();
-
+        // Adding all the platforms
         this.simpleLevel.create(100, 620, 'log').setScale(0.2).refreshBody();
         this.simpleLevel.create(210, 550, 'log').setScale(0.2).refreshBody();
         this.simpleLevel.create(130, 445, 'log').setScale(0.2).refreshBody();
@@ -47,22 +48,38 @@ class PlayGame extends Phaser.Scene {
         this.simpleLevel.create(130, 200, 'log').setScale(0.2).refreshBody();
         this.simpleLevel.create(210, 100, 'log').setScale(0.2).refreshBody();
 
-        console.log('simpleLevel', this.simpleLevel)
+        // Add Special Coin
+        this.coin = this.physics.add.sprite(randomX(), randomY(), 'coins').setScale(0.12);
+        // Creating Animation
+        this.anims.create ({
+            key: 'spin',
+            frames:
+            this.anims.generateFrameNumbers('coins'), frameRate: 8,
+            repeat: -1,
+        });
 
-        this.simpleLevel.children.entries.forEach(function(e){
-            console.log('simpleLevel::', e);
-        })
+        this.coin.body.allowGravity = false;
+
+        this.coin.play('spin');
 
          // Adding Collision With Starting Platform
          this.physics.add.collider(this.pinkMonster, this.startPlatform);
 
          // Adding Collision With Platforms
-         // Switch operator? 
          this.physics.add.collider(this.pinkMonster, this.simpleLevel);
- 
+
+         // Adding Collision With Platforms
+         this.physics.add.collider(this.coin, this.simpleLevel);
+
          // Key Inputs To Control The pinkMonster
          this.cursors = this.input.keyboard.createCursorKeys();
 
+         this.physics.add.overlap(this.pinkMonster, this.coin, this.collectStar)
+    }
+
+
+    collectStar(pinkMonster, coin){
+        coin.destroy();
     }
 
     update() {
