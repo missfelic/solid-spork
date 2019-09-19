@@ -4,93 +4,93 @@
 			"image": "coin.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 788,
-				"h": 244
+				"w": 1200,
+				"h": 300
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "coin_1.png",
+					"filename": "coin_0.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 300,
 						"h": 300
 					},
 					"spriteSourceSize": {
-						"x": 34,
-						"y": 31,
-						"w": 232,
-						"h": 242
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 232,
-						"h": 242
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					}
 				},
 				{
-					"filename": "coin_3.png",
+					"filename": "coin_1.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 300,
 						"h": 300
 					},
 					"spriteSourceSize": {
-						"x": 33,
-						"y": 35,
-						"w": 229,
-						"h": 241
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					},
 					"frame": {
-						"x": 235,
-						"y": 1,
-						"w": 229,
-						"h": 241
+						"x": 300,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					}
 				},
 				{
 					"filename": "coin_2.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 300,
 						"h": 300
 					},
 					"spriteSourceSize": {
-						"x": 111,
-						"y": 31,
-						"w": 78,
-						"h": 241
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					},
 					"frame": {
-						"x": 466,
-						"y": 1,
-						"w": 78,
-						"h": 241
+						"x": 600,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					}
 				},
 				{
-					"filename": "coin_0.png",
+					"filename": "coin_3.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 300,
 						"h": 300
 					},
 					"spriteSourceSize": {
-						"x": 30,
-						"y": 33,
-						"w": 241,
-						"h": 239
+						"x": 0,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					},
 					"frame": {
-						"x": 546,
-						"y": 1,
-						"w": 241,
-						"h": 239
+						"x": 900,
+						"y": 0,
+						"w": 300,
+						"h": 300
 					}
 				}
 			]
@@ -99,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:d6213fe776b18bc6b7a90e3496ec226a:76800080d0d7cafba4c5de3154b979a1:37dcde439de7f7292f96409a4c62c08e$"
+		"smartupdate": "$TexturePacker:SmartUpdate:4946e0fce58f142062a90c14f841529d:76800080d0d7cafba4c5de3154b979a1:37dcde439de7f7292f96409a4c62c08e$"
 	}
 }
