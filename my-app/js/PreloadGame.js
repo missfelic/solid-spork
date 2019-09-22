@@ -41,6 +41,15 @@ class PreloadGame extends Phaser.Scene {
 
     // Title Screen
     this.load.image("titlescreen", "assets/titlescreen/titlescreen.png");
+
+    // Background Music
+    this.load.audio("background", "assets/music/omfg.mp3");
+    // Jumping
+    this.load.audio("jump", "assets/music/jump.mp3");
+    // Coin
+    this.load.audio("coinSound", "assets/music/coin.mp3");
+    // Gem
+    this.load.audio("gemSound", "assets/music/gem.mp3");
   }
   create() {
     this.scene.start("PlayGame");

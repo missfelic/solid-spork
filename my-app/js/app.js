@@ -1,7 +1,7 @@
 let game;
+
 var score;
 var scoreText;
-// Game Config
 window.onload = function() {
   const gameConfig = {
     type: Phaser.AUTO,

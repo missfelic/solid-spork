@@ -4,6 +4,16 @@ class PlayGame extends Phaser.Scene {
   }
 
   create() {
+    // Load Sounds
+    this.sfx = {
+      bgSound: this.sound.add("background"),
+      jumpSound: this.sound.add("jump"),
+      gemSound: this.sound.add("gemSound"),
+      coinSound: this.sound.add("coinSound")
+    };
+    // Play Background Music
+    this.sfx.bgSound.play();
+
     // Loading Game
     // Adding First Background Sky
     this.sky = this.add.tileSprite(
@@ -136,7 +146,7 @@ class PlayGame extends Phaser.Scene {
     );
 
     this.randomGems = this.physics.add.group();
-    console.log(this.randomGems);
+    console.log("Random Gems::", this.randomGems);
     this.randomGems.defaults.setAllowGravity = false;
 
     // TODO:::::
@@ -154,14 +164,7 @@ class PlayGame extends Phaser.Scene {
     //   );
     // }
 
-    // scoreText = game.add.text(5, 5, "Points: 0", {
-    //   font: "18px Arial",
-    //   fill: "#0095DD"
-    // });
-
-    // var scoreText;
-    // var score = 0;
-    // this.scoreText = this.game.add.text(5, 5, 'Points: ' + score, { font: '18px Arial', fill: '#0095DD'﻿ });
+    // Score
     score = 0;
 
     scoreText = this.add.text(0, 0, "Score: " + score, {
@@ -170,21 +173,24 @@ class PlayGame extends Phaser.Scene {
     });
   }
 
-  collectStar(pinkMonster, coin) {
+  // Collec functions of collectables
+  collectStar = (pinkMonster, coin) => {
+    this.sfx.coinSound.play();
     coin.destroy();
     score += 25;
     scoreText.setText("Score: " + score);
-  }
+  };
 
-  collectGem(pinkMonster, randomGems) {
+  collectGem = (pinkMonster, randomGems) => {
+    this.sfx.gemSound.play();
     randomGems.destroy();
     score += 10;
     scoreText.setText("Score: " + score);
-  }
+  };
 
-  destroySprite(simpleLevel, randomGems) {
+  destroySprite = (simpleLevel, randomGems) => {
     randomGems.destroy();
-  }
+  };
 
   update() {
     // Keyboard Inputs
@@ -202,10 +208,13 @@ class PlayGame extends Phaser.Scene {
     // Jumping Controls
     if (this.cursors.space.isDown && this.pinkMonster.body.touching.down) {
       this.pinkMonster.setVelocityY(-500);
+      // Adding Jump sound
+      this.sfx.jumpSound.play();
     }
 
     // Destroy pinkMonster If pinkMoster Falls Off Screen & Reload Game
     if (this.pinkMonster.y > game.config.height) {
+      this.sfx.bgSound.stop();
       this.pinkMonster.disableBody(true, true);
       game.scene.start("RestartGame");
     }
