@@ -1,7 +1,8 @@
 let game;
-
+var score;
+var scoreText;
 // Game Config
-window.onload = function(){
+window.onload = function() {
   const gameConfig = {
     type: Phaser.AUTO,
     width: 308,
@@ -10,13 +11,13 @@ window.onload = function(){
     physics: {
       default: "arcade",
       arcade: {
-          gravity: {
-            y: 1000
-          },
-          debug: true
+        gravity: {
+          y: 1000
+        },
+        debug: true
       }
     },
-    scene: [PreloadGame, PlayGame]
-  }
+    scene: [PreloadGame, PlayGame, RestartGame]
+  };
   game = new Phaser.Game(gameConfig);
-}
+};
