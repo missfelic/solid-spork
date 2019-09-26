@@ -6,13 +6,12 @@ class PlayGame extends Phaser.Scene {
   create() {
     // Load Sounds
     this.sfx = {
-      bgSound: this.sound.add("background"),
+      // bgSound: this.sound.add("background"),
       jumpSound: this.sound.add("jump"),
-      gemSound: this.sound.add("gemSound"),
       coinSound: this.sound.add("coinSound")
     };
     // Play Background Music
-    this.sfx.bgSound.play();
+    // this.sfx.bgSound.play();
 
     // Loading Game
     // Adding First Background Sky
@@ -59,36 +58,38 @@ class PlayGame extends Phaser.Scene {
       .refreshBody();
 
     // Creating Random Platforms Group
-    this.simpleLevel = this.physics.add.staticGroup();
+    this.platforms = this.physics.add.staticGroup();
     // Adding all the platforms
-    this.simpleLevel
+    this.platforms
       .create(100, 620, "log")
       .setScale(0.2)
       .refreshBody();
-    this.simpleLevel
+    this.platforms
       .create(210, 550, "grass")
       .setScale(0.2)
       .refreshBody();
-    this.simpleLevel
+    this.platforms
       .create(130, 445, "log")
       .setScale(0.2)
       .refreshBody();
-    this.simpleLevel
+    this.platforms
       .create(100, 345, "log")
       .setScale(0.2)
       .refreshBody();
-    this.simpleLevel
+    this.platforms
       .create(220, 280, "log")
       .setScale(0.2)
       .refreshBody();
-    this.simpleLevel
+    this.platforms
       .create(130, 200, "grass")
       .setScale(0.2)
       .refreshBody();
-    this.simpleLevel
+    this.platforms
       .create(210, 100, "log")
       .setScale(0.2)
       .refreshBody();
+
+    // this.coins = this.physics.add.group();
 
     // Add Special Coin
     this.coin = this.physics.add
@@ -104,65 +105,26 @@ class PlayGame extends Phaser.Scene {
     this.coin.body.allowGravity = false;
     this.coin.play("spin");
 
-    // Gems
-    // Creating randomGems Group
-    this.randomGems = this.physics.add.group();
-    //  console.log(this.randomGems)
-    this.randomGems.defaults.setAllowGravity = false;
-    // //  // Adding all the platforms
-    this.randomGems.create(randomX(), randomY(), "redGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "blueGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "greenGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "redGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "blueGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "greenGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "redGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "blueGem").setScale(0.05);
-    this.randomGems.create(randomX(), randomY(), "greenGem").setScale(0.05);
-
-    //  console.log('randomGems', this.randomGems);
+    // Create coin group
+    // push coins to the group
+    // check for collisions with player & platforms
+    // if collision respawn the coin
+    // make sure there are 10 on the screen
 
     // Adding Collision With Starting Platform
     this.physics.add.collider(this.pinkMonster, this.startPlatform);
 
     // Adding Collision With Platforms
-    this.physics.add.collider(this.pinkMonster, this.simpleLevel);
+    this.physics.add.collider(this.pinkMonster, this.platforms);
 
     // Adding Collision With Platforms
-    this.physics.add.collider(this.coin, this.simpleLevel);
-
-    // Collision with Gems
-    this.physics.add.collider(this.randomGems, this.simpleLevel);
+    this.physics.add.collider(this.coin, this.platforms);
 
     // Key Inputs To Control The pinkMonster
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Checking for overlap
     this.physics.add.overlap(this.pinkMonster, this.coin, this.collectStar);
-    this.physics.add.overlap(
-      this.pinkMonster,
-      this.randomGems,
-      this.collectGem
-    );
-
-    this.randomGems = this.physics.add.group();
-    console.log("Random Gems::", this.randomGems);
-    this.randomGems.defaults.setAllowGravity = false;
-
-    // TODO:::::
-    // let gemArray = [];
-    // const total = 6;
-
-    // for (let i = 0; i <= total; i++) {
-    //   gemArray.push(
-    //     this.randomGems.create(randomX(), randomY(), "redGem").setScale(0.05)
-    //   );
-    //   this.physics.add.overlap(
-    //     this.simpleLevel,
-    //     this.randomGems,
-    //     this.destroySprite
-    //   );
-    // }
 
     // Score
     score = 0;
@@ -173,23 +135,12 @@ class PlayGame extends Phaser.Scene {
     });
   }
 
-  // Collec functions of collectables
+  // Collect function
   collectStar = (pinkMonster, coin) => {
     this.sfx.coinSound.play();
     coin.destroy();
     score += 25;
     scoreText.setText("Score: " + score);
-  };
-
-  collectGem = (pinkMonster, randomGems) => {
-    this.sfx.gemSound.play();
-    randomGems.destroy();
-    score += 10;
-    scoreText.setText("Score: " + score);
-  };
-
-  destroySprite = (simpleLevel, randomGems) => {
-    randomGems.destroy();
   };
 
   update() {
@@ -214,9 +165,19 @@ class PlayGame extends Phaser.Scene {
 
     // Destroy pinkMonster If pinkMoster Falls Off Screen & Reload Game
     if (this.pinkMonster.y > game.config.height) {
-      this.sfx.bgSound.stop();
+      // Stops bgSound so its not played over and over
+      // this.sfx.bgSound.stop();
       this.pinkMonster.disableBody(true, true);
+      // Calls restart game scene
       game.scene.start("RestartGame");
+    }
+
+    // If Player Reaches Top of Screen Load Next Level
+    if (this.pinkMonster.y <= 0) {
+      // Loads Level Two
+
+      game.scene.start("LevelTwo");
+      game.scene.stop("PlayGame");
     }
   }
 }
