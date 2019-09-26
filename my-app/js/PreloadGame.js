@@ -31,14 +31,6 @@ class PreloadGame extends Phaser.Scene {
       frameWidth: 300,
       frameHeight: 300
     });
-    // Collectable Gems
-    // Red Gem
-    this.load.image("redGem", "assets/gems/gem_1.png");
-    // Green Gem
-    this.load.image("greenGem", "assets/gems/gem_2.png");
-    // Blue Gem
-    this.load.image("blueGem", "assets/gems/gem_3.png");
-
     // Title Screen
     this.load.image("titlescreen", "assets/titlescreen/titlescreen.png");
 
@@ -48,8 +40,6 @@ class PreloadGame extends Phaser.Scene {
     this.load.audio("jump", "assets/music/jump.mp3");
     // Coin
     this.load.audio("coinSound", "assets/music/coin.mp3");
-    // Gem
-    this.load.audio("gemSound", "assets/music/gem.mp3");
   }
   create() {
     this.scene.start("PlayGame");
