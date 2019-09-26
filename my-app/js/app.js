@@ -1,5 +1,5 @@
 let game;
-
+// Need to save score throughout the game scenes
 var score;
 var scoreText;
 window.onload = function() {
@@ -17,7 +17,7 @@ window.onload = function() {
         debug: true
       }
     },
-    scene: [PreloadGame, PlayGame, RestartGame]
+    scene: [PreloadGame, PlayGame, RestartGame, LevelTwo, LevelThree]
   };
   game = new Phaser.Game(gameConfig);
 };
