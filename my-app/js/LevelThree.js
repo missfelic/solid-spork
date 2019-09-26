@@ -81,27 +81,31 @@ class LevelThree extends Phaser.Scene {
       .setScale(0.2)
       .refreshBody();
 
-    // this.coins = this.physics.add.group();
-
-    // Add Special Coin
-    this.coin = this.physics.add
-      .sprite(randomX(), randomY(), "coins")
-      .setScale(0.12);
-    // Creating Animation
+    // Animating Each individual Coin
     this.anims.create({
       key: "spin",
       frames: this.anims.generateFrameNumbers("coins"),
       frameRate: 8,
       repeat: -1
     });
-    this.coin.body.allowGravity = false;
-    this.coin.play("spin");
 
-    // Create coin group
-    // push coins to the group
-    // check for collisions with player & platforms
-    // if collision respawn the coin
-    // make sure there are 10 on the screen
+    // Creating Coin Group &  Setting Gravity To False
+    this.coins = this.physics.add.group();
+    this.coins.defaults.setAllowGravity = false;
+    // Creating Coins For The Coin Group
+    this.coins.create(70, 545, "coins").setScale(0.09);
+
+    this.coins.create(220, 265, "coins").setScale(0.09);
+
+    this.coins.create(90, 140, "coins").setScale(0.09);
+
+    this.coins.create(200, 60, "coins").setScale(0.09);
+    this.coins.create(200, 100, "coins").setScale(0.09);
+    this.coins.create(200, 140, "coins").setScale(0.09);
+
+    this.coins.children.iterate(child => {
+      child.play("spin");
+    });
 
     // Adding Collision With Starting Platform
     this.physics.add.collider(this.pinkMonster, this.startPlatform);
@@ -109,30 +113,32 @@ class LevelThree extends Phaser.Scene {
     // Adding Collision With Platforms
     this.physics.add.collider(this.pinkMonster, this.simpleLevel);
 
-    // Adding Collision With Platforms
-    this.physics.add.collider(this.coin, this.simpleLevel);
-
     // Key Inputs To Control The pinkMonster
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Checking for overlap
-    this.physics.add.overlap(this.pinkMonster, this.coin, this.collectStar);
+    this.physics.add.overlap(this.pinkMonster, this.coins, this.collectStar);
 
     // Score
-    score = 0;
+    coinsCollected = 0;
 
-    scoreText = this.add.text(0, 0, "Score: " + score, {
-      font: "20px Arial",
-      fill: "#000"
-    });
+    coinsCollectedText = this.add.text(
+      0,
+      0,
+      "Coins: " + coinsCollected + "/6",
+      {
+        font: "20px Arial",
+        fill: "#000"
+      }
+    );
   }
 
   // Collect function
-  collectStar = (pinkMonster, coin) => {
+  collectStar = (pinkMonster, coins) => {
     this.sfx.coinSound.play();
-    coin.destroy();
-    score += 25;
-    scoreText.setText("Score: " + score);
+    coins.destroy();
+    coinsCollected += 1;
+    coinsCollectedText.setText("Coins: " + coinsCollected + "/6");
   };
 
   update() {

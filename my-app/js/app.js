@@ -1,7 +1,7 @@
 let game;
 // Need to save score throughout the game scenes
-var score;
-var scoreText;
+var coinsCollected;
+var coinsCollectedText;
 window.onload = function() {
   const gameConfig = {
     type: Phaser.AUTO,
@@ -14,7 +14,7 @@ window.onload = function() {
         gravity: {
           y: 1000
         },
-        debug: true
+        debug: false
       }
     },
     scene: [PreloadGame, PlayGame, RestartGame, LevelTwo, LevelThree]
