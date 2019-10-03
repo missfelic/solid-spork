@@ -5,13 +5,10 @@ class PlayGame extends Phaser.Scene {
 
   create() {
     // Load Sounds
-    this.sfx = {
-      // bgSound: this.sound.add("background"),
+    sfx = {
       jumpSound: this.sound.add("jump"),
       coinSound: this.sound.add("coinSound")
     };
-    // Play Background Music
-    // this.sfx.bgSound.play();
 
     // Loading Game
     // Adding First Background Sky
@@ -141,7 +138,7 @@ class PlayGame extends Phaser.Scene {
 
   // Collect function
   collectStar = (pinkMonster, coins) => {
-    this.sfx.coinSound.play();
+    sfx.coinSound.play();
     coins.destroy();
     coinsCollected += 1;
     coinsCollectedText.setText("Coins: " + coinsCollected + "/5");
@@ -164,13 +161,11 @@ class PlayGame extends Phaser.Scene {
     if (this.cursors.space.isDown && this.pinkMonster.body.touching.down) {
       this.pinkMonster.setVelocityY(-500);
       // Adding Jump sound
-      this.sfx.jumpSound.play();
+      sfx.jumpSound.play();
     }
 
     // Destroy pinkMonster If pinkMoster Falls Off Screen & Reload Game
     if (this.pinkMonster.y > game.config.height) {
-      // Stops bgSound so its not played over and over
-      // this.sfx.bgSound.stop();
       this.pinkMonster.disableBody(true, true);
       // Calls restart game scene
       game.scene.start("RestartGame");
