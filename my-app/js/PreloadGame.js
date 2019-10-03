@@ -20,7 +20,7 @@ class PreloadGame extends Phaser.Scene {
     // pinkMonster Sprite Sheet
     this.load.spritesheet(
       "pinkMonster",
-      "assets/pinkMonster/pinkMonsterSprite.png",
+      "assets/pinkmonster/pinkMonsterSprite.png",
       {
         frameWidth: 32,
         frameHeight: 32
@@ -30,6 +30,11 @@ class PreloadGame extends Phaser.Scene {
     this.load.spritesheet("coins", "assets/coin/coin.png", {
       frameWidth: 300,
       frameHeight: 300
+    });
+    // Chest
+    this.load.spritesheet("chest", "assets/chest/chest.png", {
+      frameWidth: 432,
+      frameHeight: 498
     });
     // Title Screen
     this.load.image("titlescreen", "assets/titlescreen/titlescreen.png");
@@ -42,6 +47,8 @@ class PreloadGame extends Phaser.Scene {
     this.load.audio("jump", "assets/music/jump.mp3");
     // Coin
     this.load.audio("coinSound", "assets/music/coin.mp3");
+    // Key
+    this.load.image("bronzeKey", "assets/keys/bronzeKey.png");
   }
 
   create() {
