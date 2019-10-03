@@ -121,7 +121,7 @@ class LevelTwo extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Checking for overlap
-    this.physics.add.overlap(this.pinkMonster, this.coins, this.collectStar);
+    this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
 
     // Score
     coinsCollected = 0;
@@ -138,7 +138,7 @@ class LevelTwo extends Phaser.Scene {
   }
 
   // Collect function
-  collectStar = (pinkMonster, coins) => {
+  collectCoin = (pinkMonster, coins) => {
     this.sfx.coinSound.play();
     coins.destroy();
     coinsCollected += 1;
