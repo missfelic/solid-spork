@@ -5,7 +5,7 @@ class PlayGame extends Phaser.Scene {
 
   create() {
     // Load Sounds
-    sfx = {
+    this.sfx = {
       jumpSound: this.sound.add("jump"),
       coinSound: this.sound.add("coinSound")
     };
@@ -120,7 +120,7 @@ class PlayGame extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Checking for overlap
-    this.physics.add.overlap(this.pinkMonster, this.coins, this.collectStar);
+    this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
 
     // Score
     coinsCollected = 0;
@@ -137,8 +137,8 @@ class PlayGame extends Phaser.Scene {
   }
 
   // Collect function
-  collectStar = (pinkMonster, coins) => {
-    sfx.coinSound.play();
+  collectCoin = (pinkMonster, coins) => {
+    this.sfx.coinSound.play();
     coins.destroy();
     coinsCollected += 1;
     coinsCollectedText.setText("Coins: " + coinsCollected + "/5");
@@ -161,7 +161,7 @@ class PlayGame extends Phaser.Scene {
     if (this.cursors.space.isDown && this.pinkMonster.body.touching.down) {
       this.pinkMonster.setVelocityY(-500);
       // Adding Jump sound
-      sfx.jumpSound.play();
+      this.sfx.jumpSound.play();
     }
 
     // Destroy pinkMonster If pinkMoster Falls Off Screen & Reload Game
