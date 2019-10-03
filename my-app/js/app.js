@@ -1,7 +1,13 @@
 let game;
-// Need to save score throughout the game scenes
-var coinsCollected;
-var coinsCollectedText;
+var coinsCollected,
+  coinsCollectedText,
+  playText,
+  optionsText,
+  quitText,
+  muteMusic,
+  goBack,
+  sfx,
+  muteSXF;
 window.onload = function() {
   const gameConfig = {
     type: Phaser.AUTO,
@@ -14,10 +20,18 @@ window.onload = function() {
         gravity: {
           y: 1000
         },
-        debug: false
+        debug: true
       }
     },
-    scene: [PreloadGame, PlayGame, RestartGame, LevelTwo, LevelThree]
+    scene: [
+      PreloadGame,
+      RestartGame,
+      MainMenu,
+      Options,
+      PlayGame,
+      LevelTwo,
+      LevelThree
+    ]
   };
   game = new Phaser.Game(gameConfig);
 };
