@@ -4,6 +4,9 @@ class LevelThree extends Phaser.Scene {
   }
 
   create() {
+    let bronzeKeyCollected = false;
+    let chestOverlap = false;
+
     // Load Sounds
     this.sfx = {
       // bgSound: this.sound.add("background"),
@@ -13,7 +16,7 @@ class LevelThree extends Phaser.Scene {
     // Play Background Music
     // this.sfx.bgSound.play();
 
-    // Loading Game
+    // Loading Game Background
     // Adding First Background Sky
     this.sky = this.add.tileSprite(
       0,
@@ -24,6 +27,17 @@ class LevelThree extends Phaser.Scene {
     );
     // Setting Pivot Point (Left Corner)
     this.sky.setOrigin(0, 0);
+
+    // Chest Sprite
+    this.chest = this.physics.add.sprite(90, 75, "chest").setScale(0.1);
+    // Creating Animation
+    this.anims.create({
+      key: "chestOpen",
+      frames: this.anims.generateFrameNumbers("chest"),
+      frameRate: 8,
+      repeat: 0
+    });
+    this.chest.body.allowGravity = false;
 
     // Adding Second Background (Sides)
     this.sides = this.add.tileSprite(0, 0, 0, 0, "sides");
@@ -107,6 +121,12 @@ class LevelThree extends Phaser.Scene {
       child.play("spin");
     });
 
+    // Bronze Key
+    this.bronzeKey = this.physics.add
+      .sprite(230, 380, "bronzeKey")
+      .setScale(0.5);
+    this.bronzeKey.body.allowGravity = false;
+
     // Adding Collision With Starting Platform
     this.physics.add.collider(this.pinkMonster, this.startPlatform);
 
@@ -117,7 +137,12 @@ class LevelThree extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Checking for overlap
-    this.physics.add.overlap(this.pinkMonster, this.coins, this.collectStar);
+    // Coin Overlap
+    this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
+    // Chest Overlap
+    this.physics.add.overlap(this.pinkMonster, this.chest, this.chestPlayAnims);
+    // Key Overlap
+    this.physics.add.overlap(this.pinkMonster, this.bronzeKey, this.collectKey);
 
     // Score
     coinsCollected = 0;
@@ -133,15 +158,37 @@ class LevelThree extends Phaser.Scene {
     );
   }
 
-  // Collect function
-  collectStar = (pinkMonster, coins) => {
+  // Seperate Functions
+  // Coin Collection
+  collectCoin = (pinkMonster, coins) => {
     this.sfx.coinSound.play();
     coins.destroy();
     coinsCollected += 1;
     coinsCollectedText.setText("Coins: " + coinsCollected + "/6");
   };
 
+  // Key Collection
+  collectKey = (pinkMonster, bronzeKey) => {
+    bronzeKey.destroy();
+    this.bronzeKeyCollected = true;
+  };
+
+  // Chest Overlap
+  chestPlayAnims = (pinkMonster, chest) => {
+    this.chestOverlap = true;
+  };
+
   update() {
+    // Checking For Collision With Chest
+    if (this.chestOverlap && this.bronzeKeyCollected) {
+      // Play animation
+      this.chest.anims.play("chestOpen", true);
+      this.chestOverlap = false;
+      this.bronzeKeyCollected === false;
+    } else if (this.chestOverlap && !this.bronzeKeyCollected) {
+      this.chestOverlap = false;
+    }
+
     // Keyboard Inputs
     // Left & Right Controls
     if (this.cursors.left.isDown) {
