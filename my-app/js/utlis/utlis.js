@@ -1,16 +1,23 @@
 //    **    //
- // Utilities // 
+// Utilities //
 //    **   //
 
 // Random X Between Width Of My Game
-function randomX () {
-    let randomX = Math.floor(Math.random() * ( 250 - 100) + 100);
-    return randomX;
+function randomX() {
+  let randomX = Math.floor(Math.random() * (250 - 100) + 100);
+  return randomX;
 }
 
 // Random Y Between Height Of My Game
-function randomY () {
-    let randomY = Math.floor(Math.random() * (700 - 100) + 100);
-    return randomY;
+function randomY() {
+  let randomY = Math.floor(Math.random() * (700 - 100) + 100);
+  return randomY;
 }
 
+// Save Score In Local Storage
+function coinScore() {
+  score += 8;
+  scoreText.setText("Score: " + score);
+  gameData.score = score;
+  window.localStorage.setItem("gameData", JSON.stringify(gameData));
+}

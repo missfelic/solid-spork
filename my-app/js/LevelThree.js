@@ -145,26 +145,26 @@ class LevelThree extends Phaser.Scene {
     this.physics.add.overlap(this.pinkMonster, this.bronzeKey, this.collectKey);
 
     // Score
-    coinsCollected = 0;
-
-    coinsCollectedText = this.add.text(
-      0,
-      0,
-      "Coins: " + coinsCollected + "/6",
-      {
-        font: "20px Arial",
-        fill: "#000"
-      }
-    );
+    scoreText = this.add.text(80, 0, "Score: " + score, {
+      font: "20px",
+      fill: "#000"
+    });
   }
 
-  // Seperate Functions
-  // Coin Collection
+  // Collect function
   collectCoin = (pinkMonster, coins) => {
     this.sfx.coinSound.play();
     coins.destroy();
-    coinsCollected += 1;
-    coinsCollectedText.setText("Coins: " + coinsCollected + "/6");
+    coinScore();
+  };
+
+  // Seperate Functions
+  // Collect function
+  collectCoin = (pinkMonster, coins) => {
+    this.sfx.coinSound.play();
+    coins.destroy();
+    score += 10;
+    scoreText.setText("Score: " + score);
   };
 
   // Key Collection
