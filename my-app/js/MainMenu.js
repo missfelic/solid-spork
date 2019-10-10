@@ -46,7 +46,7 @@ class MainMenu extends Phaser.Scene {
     // Load Game
     playText.on("pointerdown", () => {
       game.scene.stop("MainMenu");
-      game.scene.start("PlayGame");
+      game.scene.start("LevelOne");
     });
 
     // Load Options

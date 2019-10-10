@@ -39,15 +39,7 @@ window.onload = function() {
         debug: false
       }
     },
-    scene: [
-      PreloadGame,
-      RestartGame,
-      MainMenu,
-      Options,
-      PlayGame,
-      LevelTwo,
-      LevelThree
-    ]
+    scene: [PreloadGame, MainMenu, Options, LevelOne, LevelTwo, LevelThree]
   };
   game = new Phaser.Game(gameConfig);
 };

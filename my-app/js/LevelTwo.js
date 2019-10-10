@@ -124,12 +124,15 @@ class LevelTwo extends Phaser.Scene {
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
 
     // Lives Group
-    this.lives = this.physics.add.group();
-    this.lives.defaults.setAllowGravity = false;
-    // Create lives
-    this.lives.create(75, 785, "life");
-    this.lives.create(105, 785, "life");
-    this.lives.create(135, 785, "life");
+    this.lives = this.physics.add.group({
+      key: "life",
+      repeat: 2,
+      setXY: { x: 75, y: 785, stepX: 28 }
+    });
+
+    this.lives.children.iterate(function(child) {
+      child.body.allowGravity = false;
+    });
 
     // Score
     scoreText = this.add.text(100, 0, "Score: " + score, {
@@ -172,8 +175,9 @@ class LevelTwo extends Phaser.Scene {
 
     // If you fall then
     if (this.pinkMonster.y > game.config.height) {
-      // Restart Level
-      game.scene.start("LevelTwo");
+      // Return to previous level
+      game.scene.stop("LevelTwo");
+      game.scene.start("LevelOne");
     }
 
     // If you reach the top then

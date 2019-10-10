@@ -1,6 +1,6 @@
-class PlayGame extends Phaser.Scene {
+class LevelOne extends Phaser.Scene {
   constructor() {
-    super("PlayGame");
+    super("LevelOne");
   }
 
   create() {
@@ -123,12 +123,15 @@ class PlayGame extends Phaser.Scene {
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
 
     // Lives Group
-    this.lives = this.physics.add.group();
-    this.lives.defaults.setAllowGravity = false;
-    // Create lives
-    this.lives.create(75, 785, "life");
-    this.lives.create(105, 785, "life");
-    this.lives.create(135, 785, "life");
+    this.lives = this.physics.add.group({
+      key: "life",
+      repeat: 2,
+      setXY: { x: 75, y: 785, stepX: 28 }
+    });
+
+    this.lives.children.iterate(function(child) {
+      child.body.allowGravity = false;
+    });
 
     // Score
     scoreText = this.add.text(100, 0, "Score: " + score, {
@@ -174,8 +177,13 @@ class PlayGame extends Phaser.Scene {
     if (this.pinkMonster.y > game.config.height) {
       score = 0;
       this.pinkMonster.disableBody(true, true);
-      // Calls restart game scene
-      game.scene.start("RestartGame");
+      // Restart scene
+      game.scene.start("LevelOne");
+      if (this.lives) {
+        console.log(this.lives);
+      }
+
+      //
     }
 
     // If Player Reaches Top of Screen Load Next Level
@@ -183,7 +191,7 @@ class PlayGame extends Phaser.Scene {
       // Loads Level Two
 
       game.scene.start("LevelTwo");
-      game.scene.stop("PlayGame");
+      game.scene.stop("LevelOne");
     }
   }
 }

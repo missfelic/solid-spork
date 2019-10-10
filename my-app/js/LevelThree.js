@@ -145,12 +145,15 @@ class LevelThree extends Phaser.Scene {
     this.physics.add.overlap(this.pinkMonster, this.bronzeKey, this.collectKey);
 
     // Lives Group
-    this.lives = this.physics.add.group();
-    this.lives.defaults.setAllowGravity = false;
-    // Create lives
-    this.lives.create(75, 785, "life");
-    this.lives.create(105, 785, "life");
-    this.lives.create(135, 785, "life");
+    this.lives = this.physics.add.group({
+      key: "life",
+      repeat: 2,
+      setXY: { x: 75, y: 785, stepX: 28 }
+    });
+
+    this.lives.children.iterate(function(child) {
+      child.body.allowGravity = false;
+    });
 
     // Score
     scoreText = this.add.text(100, 0, "Score: " + score, {
@@ -223,8 +226,9 @@ class LevelThree extends Phaser.Scene {
 
     // If you fall then
     if (this.pinkMonster.y > game.config.height) {
-      // Restart Level
-      game.scene.start("LevelThree");
+      // Go to previous level
+      game.scene.stop("LevelThree");
+      game.scene.start("LevelTwo");
     }
   }
 }
