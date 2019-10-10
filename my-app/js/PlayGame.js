@@ -122,8 +122,22 @@ class PlayGame extends Phaser.Scene {
     // Checking for overlap
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
 
+    // Lives Group
+    this.lives = this.physics.add.group();
+    this.lives.defaults.setAllowGravity = false;
+    // Create lives
+    this.lives.create(75, 785, "life");
+    this.lives.create(105, 785, "life");
+    this.lives.create(135, 785, "life");
+
     // Score
-    scoreText = this.add.text(80, 0, "Score: " + score, {
+    scoreText = this.add.text(100, 0, "Score: " + score, {
+      font: "20px",
+      fill: "#000"
+    });
+
+    // Level Text
+    levelText = this.add.text(162, 772, "Level 1", {
       font: "20px",
       fill: "#000"
     });

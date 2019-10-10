@@ -46,6 +46,8 @@ class PreloadGame extends Phaser.Scene {
     this.load.audio("coinSound", "assets/music/coin.mp3");
     // Key
     this.load.image("bronzeKey", "assets/keys/bronzeKey.png");
+    // Life
+    this.load.image("life", "assets/life/life.gif");
   }
 
   create() {

@@ -1,5 +1,6 @@
 let game;
 let score = 0,
+  levelText,
   scoreText,
   playText,
   optionsText,
@@ -35,7 +36,7 @@ window.onload = function() {
         gravity: {
           y: 1000
         },
-        debug: true
+        debug: false
       }
     },
     scene: [
