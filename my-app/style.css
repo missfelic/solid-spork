@@ -6,6 +6,40 @@ body {
 }
 
 canvas {
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
+  border: 5px solid white;
+}
+
+.cookiesContainer {
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.cookieBtn {
+  background: transparent;
+  color: white;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  transition: all 500ms ease-in-out;
+  margin: 0 0 0 10px;
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 2px;
+}
+
+.cookieBtn:hover {
+  background: white;
+  color: black;
+}
+
+.hide {
+  display: none;
 }
