@@ -21,3 +21,15 @@ function coinScore() {
   gameData.score = score;
   window.localStorage.setItem("gameData", JSON.stringify(gameData));
 }
+
+function closeCookie() {
+  const cookiesContainer = document.getElementsByClassName("cookiesContainer");
+
+  // Loop through cookieContainer adding class 'hide' to each element
+  for (var i = 0; i < cookiesContainer.length; i++) {
+    cookiesContainer[i].classList.toggle("hide");
+  }
+
+  gameData.cookieClosed = true;
+  window.localStorage.setItem("gameData", JSON.stringify(gameData));
+}

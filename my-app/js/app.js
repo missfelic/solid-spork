@@ -10,6 +10,7 @@ let score = 0,
   muteSXF;
 
 let gameData = {
+  cookieClosed: false,
   name: "Player",
   score: score,
   settings: {
