@@ -1,6 +1,6 @@
 let game;
-var coinsCollected,
-  coinsCollectedText,
+let score = 0,
+  scoreText,
   playText,
   optionsText,
   quitText,
@@ -8,7 +8,21 @@ var coinsCollected,
   goBack,
   sfx,
   muteSXF;
+
+let gameData = {
+  name: "Player",
+  score: score,
+  settings: {
+    muteSound: false,
+    muteMusic: false
+  }
+};
+
 window.onload = function() {
+  // Using Local Storage To Store Data
+  window.localStorage.clear();
+  window.localStorage.setItem("gameData", JSON.stringify(gameData));
+  console.log("gameData from app.js", gameData);
   const gameConfig = {
     type: Phaser.AUTO,
     width: 308,
