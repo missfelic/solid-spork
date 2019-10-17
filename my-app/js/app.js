@@ -6,7 +6,7 @@ let score = 0,
   scoreText,
   playText,
   optionsText,
-  quitText,
+  stagesText,
   muteMusic,
   goBack,
   sfx,
@@ -37,7 +37,7 @@ window.onload = function() {
         gravity: {
           y: 1000
         },
-        debug: true
+        debug: false
       }
     },
     scene: [

@@ -27,13 +27,13 @@ class MainMenu extends Phaser.Scene {
       font: "20px ",
       fill: "#000"
     });
-    // Options
-    optionsText = this.add.text(125, game.config.height / 2, "Options", {
+    // Stages
+    stagesText = this.add.text(125, game.config.height / 2, "Stages", {
       font: "20px ",
       fill: "#000"
     });
-    // Quit
-    quitText = this.add.text(125, 450, "Quit", {
+    // Options
+    optionsText = this.add.text(125, 450, "Options", {
       font: "20px ",
       fill: "#000"
     });
@@ -41,7 +41,6 @@ class MainMenu extends Phaser.Scene {
     // Making Text Interactive
     playText.setInteractive({ useHandCursor: true });
     optionsText.setInteractive({ useHandCursor: true });
-    quitText.setInteractive({ useHandCursor: true });
 
     // Load Game
     playText.on("pointerdown", () => {
@@ -53,11 +52,6 @@ class MainMenu extends Phaser.Scene {
     optionsText.on("pointerdown", () => {
       game.scene.stop("MainMenu");
       game.scene.start("Options");
-    });
-
-    // Quit Game
-    quitText.on("pointerdown", () => {
-      game.scene.stop("MainMenu");
     });
   }
 }
