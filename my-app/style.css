@@ -43,3 +43,10 @@ canvas {
 .hide {
   display: none;
 }
+
+.contentContainer {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+}
