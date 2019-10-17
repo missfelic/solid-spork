@@ -10,8 +10,6 @@ class LevelTwo extends Phaser.Scene {
       jumpSound: this.sound.add("jump"),
       coinSound: this.sound.add("coinSound")
     };
-    // Play Background Music
-    // this.sfx.bgSound.play();
 
     // Loading Game
     // Adding First Background Sky
@@ -93,27 +91,36 @@ class LevelTwo extends Phaser.Scene {
       repeat: -1
     });
 
+    // Groups
     // Creating Coin Group &  Setting Gravity To False
     this.coins = this.physics.add.group();
     this.coins.defaults.setAllowGravity = false;
     // Creating Coins For The Coin Group
     this.coins.create(100, 580, "coins").setScale(0.09);
     this.coins.create(220, 320, "coins").setScale(0.09);
-
     this.coins.create(100, 320, "coins").setScale(0.09);
     this.coins.create(100, 285, "coins").setScale(0.09);
     this.coins.create(100, 250, "coins").setScale(0.09);
     this.coins.create(100, 215, "coins").setScale(0.09);
-
     this.coins.create(230, 20, "coins").setScale(0.09);
-
     this.coins.children.iterate(child => {
       child.play("spin");
     });
 
+    // Hearts Group
+    this.hearts = this.physics.add.group({
+      key: "life",
+      // gameData lives - this is stored in local storage
+      repeat: gameData.lives - 1,
+      setXY: { x: 75, y: 785, stepX: 28 }
+    });
+
+    this.hearts.children.iterate(function(child) {
+      child.body.allowGravity = false;
+    });
+
     // Adding Collision With Starting Platform
     this.physics.add.collider(this.pinkMonster, this.startPlatform);
-
     // Adding Collision With Platforms
     this.physics.add.collider(this.pinkMonster, this.platforms);
 
@@ -122,17 +129,6 @@ class LevelTwo extends Phaser.Scene {
 
     // Checking for overlap
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
-
-    // Lives Group
-    this.lives = this.physics.add.group({
-      key: "life",
-      repeat: 2,
-      setXY: { x: 75, y: 785, stepX: 28 }
-    });
-
-    this.lives.children.iterate(function(child) {
-      child.body.allowGravity = false;
-    });
 
     // Score
     scoreText = this.add.text(100, 0, "Score: " + score, {
@@ -173,11 +169,20 @@ class LevelTwo extends Phaser.Scene {
       this.sfx.jumpSound.play();
     }
 
-    // If you fall then
     if (this.pinkMonster.y > game.config.height) {
-      // Return to previous level
-      game.scene.stop("LevelTwo");
-      game.scene.start("LevelOne");
+      // Removing live when fall
+      if (gameData.lives > 0) {
+        gameData.lives -= 1;
+        this.hearts.children.entries[gameData.lives].destroy();
+        console.log("gamedatelives", gameData.lives);
+      }
+      if (gameData.lives === 0) {
+        game.scene.stop("LevelTwo");
+        game.scene.start("GameOver");
+      } else {
+        game.scene.start("LevelOne");
+        game.scene.stop("LevelTwo");
+      }
     }
 
     // If you reach the top then

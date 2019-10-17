@@ -94,6 +94,8 @@ class LevelOne extends Phaser.Scene {
       repeat: -1
     });
 
+    // Groups
+
     // Creating Coin Group &  Setting Gravity To False
     this.coins = this.physics.add.group();
     this.coins.defaults.setAllowGravity = false;
@@ -101,18 +103,26 @@ class LevelOne extends Phaser.Scene {
     this.coins.create(100, 580, "coins").setScale(0.09);
     this.coins.create(125, 540, "coins").setScale(0.09);
     this.coins.create(150, 500, "coins").setScale(0.09);
-
     this.coins.create(100, 325, "coins").setScale(0.09);
-
     this.coins.create(210, 80, "coins").setScale(0.09);
-
     this.coins.children.iterate(child => {
       child.play("spin");
     });
 
+    // Hearts Group
+    this.hearts = this.physics.add.group({
+      key: "life",
+      // lives as the global variable
+      repeat: gameData.lives - 1,
+      setXY: { x: 75, y: 785, stepX: 28 }
+    });
+
+    this.hearts.children.iterate(function(child) {
+      child.body.allowGravity = false;
+    });
+
     // Adding Collision With Starting Platform
     this.physics.add.collider(this.pinkMonster, this.startPlatform);
-
     // Adding Collision With Platforms
     this.physics.add.collider(this.pinkMonster, this.platforms);
 
@@ -121,17 +131,6 @@ class LevelOne extends Phaser.Scene {
 
     // Checking for overlap
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
-
-    // Lives Group
-    this.lives = this.physics.add.group({
-      key: "life",
-      repeat: 2,
-      setXY: { x: 75, y: 785, stepX: 28 }
-    });
-
-    this.lives.children.iterate(function(child) {
-      child.body.allowGravity = false;
-    });
 
     // Score
     scoreText = this.add.text(100, 0, "Score: " + score, {
@@ -176,20 +175,27 @@ class LevelOne extends Phaser.Scene {
     // Destroy pinkMonster If pinkMoster Falls Off Screen & Reload Game
     if (this.pinkMonster.y > game.config.height) {
       score = 0;
-      this.pinkMonster.disableBody(true, true);
-      // Restart scene
-      game.scene.start("LevelOne");
-      if (this.lives) {
-        console.log(this.lives);
+      // Reseting pinkMonster position
+      this.pinkMonster.body.reset(
+        game.config.width / 2,
+        game.config.height / 1.2,
+        false,
+        false
+      );
+      // Removing live when fall
+      if (gameData.lives > 0) {
+        gameData.lives -= 1;
+        this.hearts.children.entries[gameData.lives].destroy();
+        if (gameData.lives === 0) {
+          game.scene.stop("LevelOne");
+          game.scene.start("GameOver");
+        }
       }
-
-      //
     }
 
     // If Player Reaches Top of Screen Load Next Level
     if (this.pinkMonster.y <= 0) {
       // Loads Level Two
-
       game.scene.start("LevelTwo");
       game.scene.stop("LevelOne");
     }

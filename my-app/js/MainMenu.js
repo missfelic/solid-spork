@@ -60,6 +60,4 @@ class MainMenu extends Phaser.Scene {
       game.scene.stop("MainMenu");
     });
   }
-
-  update() {}
 }

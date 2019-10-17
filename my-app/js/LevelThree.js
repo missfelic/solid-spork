@@ -103,6 +103,7 @@ class LevelThree extends Phaser.Scene {
       repeat: -1
     });
 
+    // Groups
     // Creating Coin Group &  Setting Gravity To False
     this.coins = this.physics.add.group();
     this.coins.defaults.setAllowGravity = false;
@@ -119,6 +120,18 @@ class LevelThree extends Phaser.Scene {
 
     this.coins.children.iterate(child => {
       child.play("spin");
+    });
+
+    // Hearts Group
+    this.hearts = this.physics.add.group({
+      key: "life",
+      // gameData lives - this is stored in local storage
+      repeat: gameData.lives - 1,
+      setXY: { x: 75, y: 785, stepX: 28 }
+    });
+
+    this.hearts.children.iterate(function(child) {
+      child.body.allowGravity = false;
     });
 
     // Bronze Key
@@ -143,17 +156,6 @@ class LevelThree extends Phaser.Scene {
     this.physics.add.overlap(this.pinkMonster, this.chest, this.chestPlayAnims);
     // Key Overlap
     this.physics.add.overlap(this.pinkMonster, this.bronzeKey, this.collectKey);
-
-    // Lives Group
-    this.lives = this.physics.add.group({
-      key: "life",
-      repeat: 2,
-      setXY: { x: 75, y: 785, stepX: 28 }
-    });
-
-    this.lives.children.iterate(function(child) {
-      child.body.allowGravity = false;
-    });
 
     // Score
     scoreText = this.add.text(100, 0, "Score: " + score, {
@@ -224,11 +226,19 @@ class LevelThree extends Phaser.Scene {
       this.sfx.jumpSound.play();
     }
 
-    // If you fall then
     if (this.pinkMonster.y > game.config.height) {
-      // Go to previous level
-      game.scene.stop("LevelThree");
-      game.scene.start("LevelTwo");
+      // Removing lift when fall
+      if (gameData.lives > 0) {
+        gameData.lives -= 1;
+        this.hearts.children.entries[gameData.lives].destroy();
+      }
+      if (gameData.lives === 0) {
+        game.scene.stop("LevelThree");
+        game.scene.start("GameOver");
+      } else {
+        game.scene.start("LevelTwo");
+        game.scene.stop("LevelThree");
+      }
     }
   }
 }

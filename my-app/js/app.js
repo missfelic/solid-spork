@@ -1,5 +1,7 @@
 let game;
 let score = 0,
+  gameOverText,
+  mainMenuText,
   levelText,
   scoreText,
   playText,
@@ -10,10 +12,13 @@ let score = 0,
   sfx,
   muteSXF;
 
-let gameData = {
+let gameData = window.localStorage;
+
+gameData = {
   cookieClosed: false,
   name: "Player",
   score: score,
+  lives: 3,
   settings: {
     muteSound: false,
     muteMusic: false
@@ -21,10 +26,6 @@ let gameData = {
 };
 
 window.onload = function() {
-  // Using Local Storage To Store Data
-  window.localStorage.clear();
-  window.localStorage.setItem("gameData", JSON.stringify(gameData));
-  console.log("gameData from app.js", gameData);
   const gameConfig = {
     type: Phaser.AUTO,
     width: 308,
@@ -36,10 +37,18 @@ window.onload = function() {
         gravity: {
           y: 1000
         },
-        debug: false
+        debug: true
       }
     },
-    scene: [PreloadGame, MainMenu, Options, LevelOne, LevelTwo, LevelThree]
+    scene: [
+      PreloadGame,
+      MainMenu,
+      GameOver,
+      Options,
+      LevelOne,
+      LevelTwo,
+      LevelThree
+    ]
   };
   game = new Phaser.Game(gameConfig);
 };
