@@ -21,7 +21,6 @@ canvas {
   justify-content: center;
   align-items: baseline;
   font-size: 18px;
-  margin-top: 20px;
 }
 
 .cookieBtn {
@@ -63,5 +62,9 @@ canvas {
     top: 40%;
     left: 5%;
     max-width: 25%;
+  }
+
+  .cookiesContainer {
+    margin: 18px;
   }
 }

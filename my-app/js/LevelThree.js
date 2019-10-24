@@ -11,7 +11,8 @@ class LevelThree extends Phaser.Scene {
     this.sfx = {
       // bgSound: this.sound.add("background"),
       jumpSound: this.sound.add("jump"),
-      coinSound: this.sound.add("coinSound")
+      coinSound: this.sound.add("coinSound"),
+      levelComplete: this.sound.add("levelComplete")
     };
     // Play Background Music
     // this.sfx.bgSound.play();
@@ -194,6 +195,7 @@ class LevelThree extends Phaser.Scene {
   // Chest Overlap
   chestPlayAnims = (pinkMonster, chest) => {
     this.chestOverlap = true;
+    this.sfx.levelComplete.play();
   };
 
   update() {
@@ -203,7 +205,8 @@ class LevelThree extends Phaser.Scene {
       this.chest.anims.play("chestOpen", true);
       this.chestOverlap = false;
       this.bronzeKeyCollected === false;
-    } else if (this.chestOverlap && !this.bronzeKeyCollected) {
+      // stop player from moving, load level complete text and main menu btn
+    } else {
       this.chestOverlap = false;
     }
 
