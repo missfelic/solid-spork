@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   padding: 0;
   margin: 0 auto;
@@ -6,7 +10,6 @@ body {
 }
 
 canvas {
-  margin: 20px auto;
   display: flex;
   border: 5px solid white;
 }
@@ -46,7 +49,19 @@ canvas {
 
 .contentContainer {
   color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 10%;
+  line-height: 1.8;
+  text-align: center;
+  margin: 5px auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Large Screens */
+@media only screen and (min-width: 1024px) {
+  .contentContainer {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    max-width: 25%;
+  }
 }
