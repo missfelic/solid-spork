@@ -56,10 +56,10 @@ canvas {
 }
 
 /* Large Screens */
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1025px) {
   .contentContainer {
     position: absolute;
-    top: 40%;
+    top: 25%;
     left: 5%;
     max-width: 25%;
   }
