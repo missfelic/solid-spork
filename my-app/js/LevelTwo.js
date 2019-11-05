@@ -4,31 +4,26 @@ class LevelTwo extends Phaser.Scene {
   }
 
   create() {
-    // Load Sounds
+    const defaultPosY = this.game.config.height / 1.1;
+    const defaultPosX = this.game.config.width / 2;
+
+    // Sounds
     this.sfx = {
-      // bgSound: this.sound.add("background"),
       jumpSound: this.sound.add("jump"),
       coinSound: this.sound.add("coinSound")
     };
 
-    // Loading Game
-    // Adding First Background Sky
-    this.sky = this.add.tileSprite(
-      0,
-      0,
-      game.config.width,
-      game.config.height,
-      "sky"
-    );
-    // Setting Pivot Point (Left Corner)
-    this.sky.setOrigin(0, 0);
+    // Sky
+    this.sky = this.add.image(0, 0, "sky").setOrigin(0, 0);
 
-    // Adding Second Background (Sides)
-    this.sides = this.add.tileSprite(0, 0, 0, 0, "sides");
-    // Setting Pivot Point (Left Corner)
-    this.sides.setOrigin(0, 0);
-    // Setting Scale
-    this.sides.setScale(0.2, 0.2);
+    // Clouds
+    this.clouds = this.add.image(150, 80, "clouds").setScale(0.2);
+
+    // Wood Sides
+    this.sides = this.add
+      .image(0, 0, "sides")
+      .setOrigin(0, 0)
+      .setScale(0.2);
 
     // Add pinkMonster
     this.pinkMonster = this.physics.add.sprite(
@@ -44,9 +39,6 @@ class LevelTwo extends Phaser.Scene {
       repeat: -1
     });
     this.pinkMonster.play("idle");
-
-    const defaultPosY = this.game.config.height / 1.1;
-    const defaultPosX = this.game.config.width / 2;
 
     // Starting Platform
     this.startPlatform = this.physics.add.staticGroup();
@@ -119,9 +111,8 @@ class LevelTwo extends Phaser.Scene {
       child.body.allowGravity = false;
     });
 
-    // Adding Collision With Starting Platform
+    // Collision Detection
     this.physics.add.collider(this.pinkMonster, this.startPlatform);
-    // Adding Collision With Platforms
     this.physics.add.collider(this.pinkMonster, this.platforms);
 
     // Key Inputs To Control The pinkMonster
@@ -130,28 +121,28 @@ class LevelTwo extends Phaser.Scene {
     // Checking for overlap
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
 
-    // Score
-    scoreText = this.add.text(100, 0, "Score: " + score, {
-      font: "20px",
-      fill: "#000"
-    });
     // Level Text
     levelText = this.add.text(162, 772, "Level 2", {
       font: "20px",
       fill: "#000"
     });
+
+    timerText = this.add.text(100, 20, "0", {
+      font: "25px",
+      fill: "#333"
+    });
+
+    timerText.setOrigin(0, 0);
   }
 
   // Collect function
   collectCoin = (pinkMonster, coins) => {
     this.sfx.coinSound.play();
     coins.destroy();
-    coinScore();
   };
 
   update() {
     // Keyboard Inputs
-    // Left & Right Controls
     if (this.cursors.left.isDown) {
       this.pinkMonster.setVelocityX(-120);
       this.pinkMonster.anims.play("idle", true);
@@ -174,7 +165,6 @@ class LevelTwo extends Phaser.Scene {
       if (gameData.lives > 0) {
         gameData.lives -= 1;
         this.hearts.children.entries[gameData.lives].destroy();
-        console.log("gamedatelives", gameData.lives);
       }
       if (gameData.lives === 0) {
         game.scene.stop("LevelTwo");

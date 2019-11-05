@@ -4,48 +4,26 @@ class LevelThree extends Phaser.Scene {
   }
 
   create() {
-    let bronzeKeyCollected = false;
-    let chestOverlap = false;
+    const defaultPosY = this.game.config.height / 1.1;
+    const defaultPosX = this.game.config.width / 2;
 
-    // Load Sounds
+    // Sounds
     this.sfx = {
-      // bgSound: this.sound.add("background"),
       jumpSound: this.sound.add("jump"),
-      coinSound: this.sound.add("coinSound"),
-      levelComplete: this.sound.add("levelComplete")
+      coinSound: this.sound.add("coinSound")
     };
-    // Play Background Music
-    // this.sfx.bgSound.play();
 
-    // Loading Game Background
-    // Adding First Background Sky
-    this.sky = this.add.tileSprite(
-      0,
-      0,
-      game.config.width,
-      game.config.height,
-      "sky"
-    );
-    // Setting Pivot Point (Left Corner)
-    this.sky.setOrigin(0, 0);
+    // Sky
+    this.sky = this.add.image(0, 0, "sky").setOrigin(0, 0);
 
-    // Chest Sprite
-    this.chest = this.physics.add.sprite(90, 75, "chest").setScale(0.1);
-    // Creating Animation
-    this.anims.create({
-      key: "chestOpen",
-      frames: this.anims.generateFrameNumbers("chest"),
-      frameRate: 8,
-      repeat: 0
-    });
-    this.chest.body.allowGravity = false;
+    // Clouds
+    this.clouds = this.add.image(150, 80, "clouds").setScale(0.2);
 
-    // Adding Second Background (Sides)
-    this.sides = this.add.tileSprite(0, 0, 0, 0, "sides");
-    // Setting Pivot Point (Left Corner)
-    this.sides.setOrigin(0, 0);
-    // Setting Scale
-    this.sides.setScale(0.2, 0.2);
+    // Wood Sides
+    this.sides = this.add
+      .image(0, 0, "sides")
+      .setOrigin(0, 0)
+      .setScale(0.2);
 
     // Add pinkMonster
     this.pinkMonster = this.physics.add.sprite(
@@ -62,8 +40,27 @@ class LevelThree extends Phaser.Scene {
     });
     this.pinkMonster.play("idle");
 
-    const defaultPosY = this.game.config.height / 1.1;
-    const defaultPosX = this.game.config.width / 2;
+    // Flag
+    //TODO:
+    // get pole, base & top displaying
+    // position correctly
+    // save time to local sotrage / session storage
+    // make completed screen
+    // show best time vs time you just got
+    // once you hit flag save current time to storage & load completed level screen
+    this.flag = this.physics.add
+      .sprite(0, 0, "flag")
+      .setOrigin(0)
+      .setScale(0.08);
+
+    this.anims.create({
+      key: "blow",
+      frames: this.anims.generateFrameNumbers("flag"),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.flag.play("blow");
+    this.flag.body.allowGravity = false;
 
     // Starting Platform
     this.startPlatform = this.physics.add.staticGroup();
@@ -135,81 +132,37 @@ class LevelThree extends Phaser.Scene {
       child.body.allowGravity = false;
     });
 
-    // Bronze Key
-    this.bronzeKey = this.physics.add
-      .sprite(230, 380, "bronzeKey")
-      .setScale(0.5);
-    this.bronzeKey.body.allowGravity = false;
-
-    // Adding Collision With Starting Platform
+    // Collision Detection
     this.physics.add.collider(this.pinkMonster, this.startPlatform);
-
-    // Adding Collision With Platforms
     this.physics.add.collider(this.pinkMonster, this.simpleLevel);
 
     // Key Inputs To Control The pinkMonster
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // Checking for overlap
-    // Coin Overlap
+    // Checking for overlaps
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
-    // Chest Overlap
-    this.physics.add.overlap(this.pinkMonster, this.chest, this.chestPlayAnims);
-    // Key Overlap
-    this.physics.add.overlap(this.pinkMonster, this.bronzeKey, this.collectKey);
 
-    // Score
-    scoreText = this.add.text(100, 0, "Score: " + score, {
-      font: "20px",
-      fill: "#000"
-    });
     // Level Three
     levelText = this.add.text(162, 772, "Level 3", {
       font: "20px",
       fill: "#000"
     });
+
+    timerText = this.add.text(100, 20, "0", {
+      font: "25px",
+      fill: "#333"
+    });
+
+    timerText.setOrigin(0, 0);
   }
 
   // Collect function
   collectCoin = (pinkMonster, coins) => {
     this.sfx.coinSound.play();
     coins.destroy();
-    coinScore();
-  };
-
-  // Seperate Functions
-  // Collect function
-  collectCoin = (pinkMonster, coins) => {
-    this.sfx.coinSound.play();
-    coins.destroy();
-    score += 10;
-    scoreText.setText("Score: " + score);
-  };
-
-  // Key Collection
-  collectKey = (pinkMonster, bronzeKey) => {
-    bronzeKey.destroy();
-    this.bronzeKeyCollected = true;
-  };
-
-  // Chest Overlap
-  chestPlayAnims = (pinkMonster, chest) => {
-    this.chestOverlap = true;
-    this.sfx.levelComplete.play();
   };
 
   update() {
-    // Checking For Collision With Chest
-    if (this.chestOverlap && this.bronzeKeyCollected) {
-      // Play animation
-      this.chest.anims.play("chestOpen", true);
-      this.chestOverlap = false;
-      this.bronzeKeyCollected === false;
-      // stop player from moving, load level complete text and main menu btn
-    } else {
-      this.chestOverlap = false;
-    }
-
     // Keyboard Inputs
     // Left & Right Controls
     if (this.cursors.left.isDown) {

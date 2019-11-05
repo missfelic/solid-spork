@@ -1,9 +1,9 @@
 let game;
-let score = 0,
-  gameOverText,
+let gameOverText,
   mainMenuText,
   levelText,
-  scoreText,
+  timerText,
+  seconds = 0,
   playText,
   optionsText,
   stagesText,
@@ -17,8 +17,9 @@ let gameData = window.localStorage;
 gameData = {
   cookieClosed: false,
   name: "Player",
-  score: score,
   lives: 3,
+  bestTime: 0,
+  timeLapsed: 0,
   settings: {
     muteSound: false,
     muteMusic: false
@@ -27,7 +28,7 @@ gameData = {
 
 window.onload = function() {
   const gameConfig = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     width: 308,
     height: 800,
     pixelArt: true,

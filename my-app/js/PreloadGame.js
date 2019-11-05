@@ -4,7 +4,7 @@ class PreloadGame extends Phaser.Scene {
   }
 
   preload() {
-    // Load All Game Assets
+    // Images //
     //Sky
     this.load.image("sky", "assets/background/layers/sky.png");
     // Sides
@@ -14,45 +14,52 @@ class PreloadGame extends Phaser.Scene {
     // Cloud
     this.load.image("clouds", "assets/background/layers/clouds.png");
     // Log Platforms
-    this.load.image("log", "assets/ground/log.png");
+    this.load.image("log", "assets/platforms/log.png");
     // Grass Platforms
-    this.load.image("grass", "assets/ground/platform.png");
-    // pinkMonster Sprite Sheet
+    this.load.image("grass", "assets/platforms/platform.png");
+    // Life
+    this.load.image("life", "assets/life/life.gif");
+
+    // Title Screen
+    this.load.image("titlescreen", "assets/titlescreen/titlescreen.png");
+
+    // Sprites //
     this.load.spritesheet(
       "pinkMonster",
-      "assets/pinkmonster/pinkMonsterSprite.png",
+      "assets/sprites/pinkMonsterSprite.png",
       {
         frameWidth: 32,
         frameHeight: 32
       }
     );
     // Coins
-    this.load.spritesheet("coins", "assets/coin/coin.png", {
+    this.load.spritesheet("coins", "assets/sprites/coin.png", {
       frameWidth: 300,
       frameHeight: 300
     });
-    // Chest
-    this.load.spritesheet("chest", "assets/chest/chest.png", {
-      frameWidth: 432,
-      frameHeight: 498
+
+    // Flag
+    this.load.spritesheet("flag", "assets/flag/flag.png", {
+      frameWidth: 898,
+      frameHeight: 641
     });
-    // Title Screen
-    this.load.image("titlescreen", "assets/titlescreen/titlescreen.png");
-    // Loadingbar
-    // this.load.image("loading", "assets/loading/loading.png");
+
+    // Audio //
     // Jumping
     this.load.audio("jump", "assets/music/jump.mp3");
     // Coin
     this.load.audio("coinSound", "assets/music/coin.mp3");
     // Level Complete
     this.load.audio("levelComplete", "assets/music/levelcomplete.mp3");
-    // Key
-    this.load.image("bronzeKey", "assets/keys/bronzeKey.png");
-    // Life
-    this.load.image("life", "assets/life/life.gif");
+    // Background Music
+    this.load.audio("bgMusic", "assets/music/bgMusic.mp3");
   }
 
   create() {
-    this.scene.start("MainMenu");
+    this.scene.start("LevelThree");
+
+    this.bgMusic = this.sound.add("bgMusic");
+    this.bgMusic.setLoop(true);
+    this.bgMusic.play();
   }
 }
