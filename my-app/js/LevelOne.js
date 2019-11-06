@@ -95,28 +95,39 @@ class LevelOne extends Phaser.Scene {
 
     // Groups
     // Creating Coin Group &  Setting Gravity To False
-    this.coins = this.physics.add.group();
-    this.coins.defaults.setAllowGravity = false;
+    this.coins = this.physics.add.staticGroup();
+
     // Creating Coins For The Coin Group
-    this.coins.create(100, 580, "coins").setScale(0.09);
-    this.coins.create(125, 540, "coins").setScale(0.09);
-    this.coins.create(150, 500, "coins").setScale(0.09);
-    this.coins.create(100, 325, "coins").setScale(0.09);
-    this.coins.create(210, 80, "coins").setScale(0.09);
+    this.coins
+      .create(100, 580, "coins")
+      .setScale(0.09)
+      .refreshBody();
+    this.coins
+      .create(125, 540, "coins")
+      .setScale(0.09)
+      .refreshBody();
+    this.coins
+      .create(150, 500, "coins")
+      .setScale(0.09)
+      .refreshBody();
+    this.coins
+      .create(100, 325, "coins")
+      .setScale(0.09)
+      .refreshBody();
+    this.coins
+      .create(210, 80, "coins")
+      .setScale(0.09)
+      .refreshBody();
     this.coins.children.iterate(child => {
       child.play("spin");
     });
 
     // Hearts Group
-    this.hearts = this.physics.add.group({
+    this.hearts = this.physics.add.staticGroup({
       key: "life",
       // lives as the global variable
       repeat: gameData.lives - 1,
       setXY: { x: 75, y: 785, stepX: 28 }
-    });
-
-    this.hearts.children.iterate(function(child) {
-      child.body.allowGravity = false;
     });
 
     // Collision Detection

@@ -10,7 +10,8 @@ class LevelThree extends Phaser.Scene {
     // Sounds
     this.sfx = {
       jumpSound: this.sound.add("jump"),
-      coinSound: this.sound.add("coinSound")
+      coinSound: this.sound.add("coinSound"),
+      stageComplete: this.sound.add("stageComplete")
     };
 
     // Sky
@@ -24,6 +25,42 @@ class LevelThree extends Phaser.Scene {
       .image(0, 0, "sides")
       .setOrigin(0, 0)
       .setScale(0.2);
+
+    this.flagGroup = this.physics.add.staticGroup();
+
+    // Flag Sprite
+    this.flag = this.flagGroup
+      .create(130, 110, "flag")
+      .setOrigin(0)
+      .setScale(0.08)
+      .refreshBody();
+
+    // Flag Animation
+    this.anims.create({
+      key: "blow",
+      frames: this.anims.generateFrameNumbers("flag"),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.flag.flipX = true;
+    this.flag.play("blow");
+
+    // Post
+    this.flagGroup
+      .create(200, 160, "post")
+      .setScale(0.1)
+      .refreshBody();
+    // Base
+    this.flagGroup
+      .create(200, 210, "base")
+      .setScale(0.1)
+      .refreshBody();
+    // Top
+    this.flagGroup
+      .create(200, 110, "top")
+      .setScale(0.1)
+      .refreshBody();
 
     // Add pinkMonster
     this.pinkMonster = this.physics.add.sprite(
@@ -40,27 +77,11 @@ class LevelThree extends Phaser.Scene {
     });
     this.pinkMonster.play("idle");
 
-    // Flag
     //TODO:
-    // get pole, base & top displaying
-    // position correctly
     // save time to local sotrage / session storage
     // make completed screen
     // show best time vs time you just got
     // once you hit flag save current time to storage & load completed level screen
-    this.flag = this.physics.add
-      .sprite(0, 0, "flag")
-      .setOrigin(0)
-      .setScale(0.08);
-
-    this.anims.create({
-      key: "blow",
-      frames: this.anims.generateFrameNumbers("flag"),
-      frameRate: 10,
-      repeat: -1
-    });
-    this.flag.play("blow");
-    this.flag.body.allowGravity = false;
 
     // Starting Platform
     this.startPlatform = this.physics.add.staticGroup();
@@ -88,10 +109,6 @@ class LevelThree extends Phaser.Scene {
       .create(200, 225, "log")
       .setScale(0.2)
       .refreshBody();
-    this.simpleLevel
-      .create(100, 105, "log")
-      .setScale(0.2)
-      .refreshBody();
 
     // Animating Each individual Coin
     this.anims.create({
@@ -103,33 +120,37 @@ class LevelThree extends Phaser.Scene {
 
     // Groups
     // Creating Coin Group &  Setting Gravity To False
-    this.coins = this.physics.add.group();
-    this.coins.defaults.setAllowGravity = false;
+    this.coins = this.physics.add.staticGroup();
     // Creating Coins For The Coin Group
-    this.coins.create(70, 545, "coins").setScale(0.09);
+    this.coins
+      .create(70, 545, "coins")
+      .setScale(0.09)
+      .refreshBody();
 
-    this.coins.create(220, 265, "coins").setScale(0.09);
+    this.coins
+      .create(220, 265, "coins")
+      .setScale(0.09)
+      .refreshBody();
 
-    this.coins.create(90, 140, "coins").setScale(0.09);
-
-    this.coins.create(200, 60, "coins").setScale(0.09);
-    this.coins.create(200, 100, "coins").setScale(0.09);
-    this.coins.create(200, 140, "coins").setScale(0.09);
+    this.coins
+      .create(90, 180, "coins")
+      .setScale(0.09)
+      .refreshBody();
+    this.coins
+      .create(90, 220, "coins")
+      .setScale(0.09)
+      .refreshBody();
 
     this.coins.children.iterate(child => {
       child.play("spin");
     });
 
     // Hearts Group
-    this.hearts = this.physics.add.group({
+    this.hearts = this.physics.add.staticGroup({
       key: "life",
       // gameData lives - this is stored in local storage
       repeat: gameData.lives - 1,
       setXY: { x: 75, y: 785, stepX: 28 }
-    });
-
-    this.hearts.children.iterate(function(child) {
-      child.body.allowGravity = false;
     });
 
     // Collision Detection
@@ -141,6 +162,11 @@ class LevelThree extends Phaser.Scene {
 
     // Checking for overlaps
     this.physics.add.overlap(this.pinkMonster, this.coins, this.collectCoin);
+    this.physics.add.overlap(
+      this.pinkMonster,
+      this.flagGroup,
+      this.stageComplete
+    );
 
     // Level Three
     levelText = this.add.text(162, 772, "Level 3", {
@@ -154,12 +180,19 @@ class LevelThree extends Phaser.Scene {
     });
 
     timerText.setOrigin(0, 0);
+
+    console.log(this.pinkMonster);
   }
 
-  // Collect function
   collectCoin = (pinkMonster, coins) => {
     this.sfx.coinSound.play();
     coins.destroy();
+  };
+
+  stageComplete = (pinkMonster, flagGroup) => {
+    this.pinkMonster.body.enable = false;
+    this.game.sound.stopAll();
+    this.sfx.stageComplete.play();
   };
 
   update() {

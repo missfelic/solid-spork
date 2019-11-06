@@ -19,6 +19,12 @@ class PreloadGame extends Phaser.Scene {
     this.load.image("grass", "assets/platforms/platform.png");
     // Life
     this.load.image("life", "assets/life/life.gif");
+    // Post
+    this.load.image("post", "assets/flag/post.png");
+    // Top
+    this.load.image("top", "assets/flag/top.png");
+    // Base
+    this.load.image("base", "assets/flag/base.png");
 
     // Title Screen
     this.load.image("titlescreen", "assets/titlescreen/titlescreen.png");
@@ -46,17 +52,17 @@ class PreloadGame extends Phaser.Scene {
 
     // Audio //
     // Jumping
-    this.load.audio("jump", "assets/music/jump.mp3");
+    this.load.audio("jump", "assets/audio/jump.mp3");
     // Coin
-    this.load.audio("coinSound", "assets/music/coin.mp3");
+    this.load.audio("coinSound", "assets/audio/coin.mp3");
     // Level Complete
-    this.load.audio("levelComplete", "assets/music/levelcomplete.mp3");
+    this.load.audio("stageComplete", "assets/audio/stageComplete.mp3");
     // Background Music
-    this.load.audio("bgMusic", "assets/music/bgMusic.mp3");
+    this.load.audio("bgMusic", "assets/audio/bgMusic.mp3");
   }
 
   create() {
-    this.scene.start("LevelThree");
+    this.scene.start("LevelOne");
 
     this.bgMusic = this.sound.add("bgMusic");
     this.bgMusic.setLoop(true);
