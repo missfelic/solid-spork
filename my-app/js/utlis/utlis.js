@@ -25,3 +25,25 @@ const closeCookie = () => {
   gameData.cookieClosed = true;
   window.localStorage.setItem("gameData", JSON.stringify(gameData));
 };
+
+// Time Counter
+let seconds = gameData.timeLapsed;
+
+let timeCounter = setInterval(() => {
+  ++seconds;
+
+  if (seconds >= 60) {
+    let minutes = Math.floor(seconds / 60);
+    timerText.setText(`${minutes}m ${seconds % 60}s`);
+  } else {
+    timerText.setText(`${seconds % 60}s`);
+  }
+  gameData.timeLapsed = seconds;
+  window.localStorage.setItem("gameData", JSON.stringify(gameData));
+  console.log(gameData.timeLapsed);
+
+  // Stoping Timmer
+  if (completedGame) {
+    clearInterval(timeCounter);
+  }
+}, 500);

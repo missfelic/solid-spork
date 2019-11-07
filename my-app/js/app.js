@@ -1,9 +1,9 @@
 let game;
-let gameOverText,
+let completedGame = false,
+  gameOverText,
   mainMenuText,
   levelText,
   timerText,
-  seconds = 0,
   playText,
   optionsText,
   stagesText,

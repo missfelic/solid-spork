@@ -188,6 +188,7 @@ class LevelThree extends Phaser.Scene {
   };
 
   stageComplete = (pinkMonster, flagGroup) => {
+    completedGame = true;
     this.pinkMonster.body.enable = false;
     this.game.sound.stopAll();
     this.sfx.stageComplete.play();

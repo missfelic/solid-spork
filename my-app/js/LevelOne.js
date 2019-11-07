@@ -154,30 +154,14 @@ class LevelOne extends Phaser.Scene {
     timerText.setOrigin(0, 0);
 
     // Checking for keyPress to start timer
-    document.addEventListener("keydown", event => {
-      if (
-        event.keyCode === 39 ||
-        event.keyCode === 32 ||
-        event.keyCode === 37
-      ) {
-        // Time Counter
-        let seconds = gameData.timeLapsed;
-
-        const timeCounter = setInterval(() => {
-          ++seconds;
-
-          if (seconds >= 60) {
-            let minutes = Math.floor(seconds / 60);
-            timerText.setText(`${minutes}m ${seconds % 60}s`);
-          } else {
-            timerText.setText(`${seconds % 60}s`);
-          }
-          gameData.timeLapsed = seconds;
-          window.localStorage.setItem("gameData", JSON.stringify(gameData));
-          console.log(gameData.timeLapsed);
-        }, 500);
-      }
-    });
+    // document.addEventListener("keydown", event => {
+    //   if (
+    //     event.keyCode === 39 ||
+    //     event.keyCode === 32 ||
+    //     event.keyCode === 37
+    //   ) {
+    //   }
+    // });
   }
 
   // Collect function
