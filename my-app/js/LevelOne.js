@@ -146,7 +146,7 @@ class LevelOne extends Phaser.Scene {
       fill: "#FFF"
     });
 
-    timerText = this.add.text(100, 20, "0s", {
+    timerText = this.add.text(80, 20, "0s", {
       font: "25px",
       fill: "#333"
     });
