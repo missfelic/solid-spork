@@ -4,6 +4,7 @@ class GameOver extends Phaser.Scene {
   }
 
   create() {
+    gameOver = true;
     // Titlescreen
     this.titlescreen = this.add.sprite(
       game.config.width / 2,
@@ -15,14 +16,21 @@ class GameOver extends Phaser.Scene {
     // Gameover text
     gameOverText = this.add.text(80, 350, "Game Over", {
       font: "30px ",
-      fill: "#000"
+      fill: "#333"
     });
 
     // Return to MainMenu
     mainMenuText = this.add.text(105, game.config.height / 2, "Main Menu", {
       font: "20px ",
-      fill: "#000"
+      fill: "#333"
     });
+
+    timerText = this.add.text(145, 300, seconds, {
+      font: "25px",
+      color: "#333"
+    });
+
+    timerText.setOrigin(0, 0);
 
     // Making Text Interactive
     mainMenuText.setInteractive({ useHandCursor: true });

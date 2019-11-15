@@ -62,7 +62,7 @@ class PreloadGame extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start("LevelOne");
+    this.scene.start("MainMenu");
 
     this.bgMusic = this.sound.add("bgMusic");
     this.bgMusic.setLoop(true);

@@ -1,7 +1,9 @@
 let game;
 let completedGame = false,
+  timerToggle = false,
   gameOverText,
   mainMenuText,
+  gameOver = false,
   levelText,
   timerText,
   playText,

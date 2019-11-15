@@ -4,6 +4,7 @@ class LevelOne extends Phaser.Scene {
   }
 
   create() {
+    timerToggle = true;
     const defaultPosY = this.game.config.height / 1.1;
     const defaultPosX = this.game.config.width / 2;
 
@@ -146,22 +147,12 @@ class LevelOne extends Phaser.Scene {
       fill: "#FFF"
     });
 
-    timerText = this.add.text(80, 20, "0s", {
+    timerText = this.add.text(80, 20, seconds, {
       font: "25px",
       fill: "#333"
     });
 
     timerText.setOrigin(0, 0);
-
-    // Checking for keyPress to start timer
-    // document.addEventListener("keydown", event => {
-    //   if (
-    //     event.keyCode === 39 ||
-    //     event.keyCode === 32 ||
-    //     event.keyCode === 37
-    //   ) {
-    //   }
-    // });
   }
 
   // Collect function

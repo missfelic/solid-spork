@@ -174,7 +174,7 @@ class LevelThree extends Phaser.Scene {
       fill: "#000"
     });
 
-    timerText = this.add.text(80, 20, "0", {
+    timerText = this.add.text(80, 20, seconds, {
       font: "25px",
       fill: "#333"
     });
