@@ -35,13 +35,13 @@ document.addEventListener("keydown", event => {
 });
 
 // Time Counter
-let seconds = gameData.timeLapsed;
+seconds = gameData.timeLapsed;
 let timeCounter = setInterval(() => {
   if (startTimer && timerToggle) {
     ++seconds;
   }
 
-  if (timerToggle) {
+  if (timerToggle && !gameOver) {
     if (seconds >= 60) {
       let minutes = Math.floor(seconds / 60);
       timerText.setText(`${minutes}m ${seconds % 60}s`);
