@@ -50,9 +50,17 @@ canvas {
   color: #fff;
   line-height: 1.8;
   text-align: center;
-  margin: 5px auto;
+  margin: 0 auto;
   max-width: 600px;
   width: 100%;
+}
+
+.title {
+  margin: 16px 0 0 0;
+}
+
+.text {
+  margin: 16px 0;
 }
 
 /* Large Screens */
@@ -66,5 +74,9 @@ canvas {
 
   .cookiesContainer {
     margin: 18px;
+  }
+
+  .title {
+    margin: 0;
   }
 }
