@@ -4,6 +4,7 @@ class GameOver extends Phaser.Scene {
   }
 
   create() {
+    this.game.sound.stopAll();
     gameOver = true;
     // Titlescreen
     this.titlescreen = this.add.sprite(
@@ -14,23 +15,40 @@ class GameOver extends Phaser.Scene {
     this.titlescreen.setScale(0.2);
 
     // Gameover text
-    gameOverText = this.add.text(80, 350, "Game Over", {
-      font: "30px ",
-      fill: "#333"
-    });
+    gameOverText = this.add.text(
+      75,
+      350,
+      `${gameOver ? "Game over!" : "Level complete!"}`,
+      {
+        font: "30px ",
+        fill: "#333"
+      }
+    );
 
     // Return to MainMenu
-    mainMenuText = this.add.text(105, game.config.height / 2, "Main Menu", {
+    mainMenuText = this.add.text(95, game.config.height / 2, "Play again?", {
       font: "20px ",
       fill: "#333"
     });
 
-    timerText = this.add.text(145, 300, seconds, {
-      font: "25px",
-      color: "#333"
-    });
+    const bestTime = Cookies.get("bestTime");
 
-    timerText.setOrigin(0, 0);
+    const textStyle = {
+      font: "20px",
+      color: "#333",
+      align: "center"
+    };
+
+    bestTimeText = this.add.text(70, 270, bestTime, textStyle);
+
+    if (bestTime >= 60) {
+      let minutes = Math.floor(bestTime / 60);
+      bestTimeText.setText(`Your Best Time: \n${minutes}m ${bestTime % 60}s`);
+    } else {
+      bestTimeText.setText(`Your Best Time: \n${bestTime % 60}s`);
+    }
+
+    bestTimeText.setOrigin(0, 0);
 
     // Making Text Interactive
     mainMenuText.setInteractive({ useHandCursor: true });
