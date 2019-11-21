@@ -1,31 +1,26 @@
-let game;
-let completedGame = false,
-  timerToggle = false,
-  gameOverText,
-  mainMenuText,
+let bestTimeText,
+  completedGame = false,
+  game,
   gameOver = false,
+  gameOverText,
   levelText,
-  timerText,
+  mainMenuText,
   playText,
-  optionsText,
-  stagesText,
-  muteMusic,
-  goBack,
-  sfx,
-  muteSXF;
+  seconds,
+  timerToggle = false,
+  timerText;
 
 let gameData = window.localStorage;
 
+// If not cookie, set one
+if (!Cookies.get("bestTime")) {
+  Cookies.set("bestTime", "0", { expires: 7, path: "/" });
+}
+
 gameData = {
   cookieClosed: false,
-  name: "Player",
   lives: 3,
-  bestTime: 0,
-  timeLapsed: 0,
-  settings: {
-    muteSound: false,
-    muteMusic: false
-  }
+  timeLapsed: 0
 };
 
 window.onload = function() {
@@ -47,15 +42,7 @@ window.onload = function() {
         debug: false
       }
     },
-    scene: [
-      PreloadGame,
-      MainMenu,
-      GameOver,
-      Options,
-      LevelOne,
-      LevelTwo,
-      LevelThree
-    ]
+    scene: [PreloadGame, MainMenu, GameOver, LevelOne, LevelTwo, LevelThree]
   };
   game = new Phaser.Game(gameConfig);
 };
