@@ -183,6 +183,11 @@ class LevelThree extends Phaser.Scene {
   }
 
   collectCoin = (pinkMonster, coins) => {
+    if (seconds < 4) {
+      seconds -= 1;
+    } else {
+      seconds -= 4;
+    }
     this.sfx.coinSound.play();
     coins.destroy();
   };
@@ -235,6 +240,11 @@ class LevelThree extends Phaser.Scene {
         game.scene.start("LevelTwo");
         game.scene.stop("LevelThree");
       }
+    }
+    if (completedGame) {
+      console.log(completedGame);
+      game.scene.stop("LevelThree");
+      game.scene.start("GameOver");
     }
   }
 }

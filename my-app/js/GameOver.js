@@ -4,6 +4,7 @@ class GameOver extends Phaser.Scene {
   }
 
   create() {
+    completedGame = true;
     this.game.sound.stopAll();
     gameOver = true;
     // Titlescreen
@@ -18,15 +19,18 @@ class GameOver extends Phaser.Scene {
     gameOverText = this.add.text(
       75,
       350,
-      `${gameOver ? "Game over!" : "Level complete!"}`,
+      `${completedGame ? "Level \nComplete!" : "Game over!"}`,
       {
-        font: "30px ",
-        fill: "#333"
+        font: "30px",
+        fill: "#333",
+        align: "center"
       }
     );
 
+    const textHeight = completedGame ? 440 : game.config.height / 2;
+
     // Return to MainMenu
-    mainMenuText = this.add.text(95, game.config.height / 2, "Play again?", {
+    mainMenuText = this.add.text(95, textHeight, "Play again?", {
       font: "20px ",
       fill: "#333"
     });

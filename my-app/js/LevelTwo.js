@@ -153,6 +153,11 @@ class LevelTwo extends Phaser.Scene {
 
   // Collect function
   collectCoin = (pinkMonster, coins) => {
+    if (seconds < 4) {
+      seconds -= 1;
+    } else {
+      seconds -= 4;
+    }
     this.sfx.coinSound.play();
     coins.destroy();
   };

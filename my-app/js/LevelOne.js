@@ -136,6 +136,8 @@ class LevelOne extends Phaser.Scene {
     this.physics.add.collider(this.pinkMonster, this.platforms);
 
     // Key Inputs To Control The pinkMonster
+    // Touch event listener
+    // this.touchControls = this.input.startListeners();
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Checking for overlap
@@ -157,6 +159,11 @@ class LevelOne extends Phaser.Scene {
 
   // Collect function
   collectCoin = (pinkMonster, coins) => {
+    if (seconds < 4) {
+      seconds -= 1;
+    } else {
+      seconds -= 4;
+    }
     this.sfx.coinSound.play();
     coins.destroy();
   };
@@ -174,6 +181,7 @@ class LevelOne extends Phaser.Scene {
     }
 
     // Jumping Controls
+    // TODO:
     if (this.cursors.space.isDown && this.pinkMonster.body.touching.down) {
       this.pinkMonster.setVelocityY(-500);
       // Adding Jump sound
