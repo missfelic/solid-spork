@@ -192,6 +192,14 @@ class LevelThree extends Phaser.Scene {
     this.pinkMonster.body.enable = false;
     this.game.sound.stopAll();
     this.sfx.stageComplete.play();
+
+    let bestTimeCookie = Cookies.get("bestTime");
+    if (bestTimeCookie === "0") {
+      bestTimeCookie = seconds;
+    } else if (bestTimeCookie > seconds) {
+      bestTimeCookie = seconds;
+    }
+    Cookies.set("bestTime", bestTimeCookie, { expires: 7, path: "/" });
   };
 
   update() {
