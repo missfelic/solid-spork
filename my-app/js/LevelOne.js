@@ -181,10 +181,8 @@ class LevelOne extends Phaser.Scene {
     }
 
     // Jumping Controls
-    // TODO:
     if (this.cursors.space.isDown && this.pinkMonster.body.touching.down) {
       this.pinkMonster.setVelocityY(-500);
-      // Adding Jump sound
       this.sfx.jumpSound.play();
     }
 
