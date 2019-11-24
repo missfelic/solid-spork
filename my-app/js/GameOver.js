@@ -4,7 +4,6 @@ class GameOver extends Phaser.Scene {
   }
 
   create() {
-    completedGame = true;
     this.game.sound.stopAll();
     gameOver = true;
     // Titlescreen

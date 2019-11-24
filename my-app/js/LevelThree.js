@@ -11,7 +11,8 @@ class LevelThree extends Phaser.Scene {
     this.sfx = {
       jumpSound: this.sound.add("jump"),
       coinSound: this.sound.add("coinSound"),
-      stageComplete: this.sound.add("stageComplete")
+      stageComplete: this.sound.add("stageComplete"),
+      gameover: this.sound.add("gameover")
     };
 
     // Sky
@@ -76,12 +77,6 @@ class LevelThree extends Phaser.Scene {
       repeat: -1
     });
     this.pinkMonster.play("idle");
-
-    //TODO:
-    // save time to local sotrage / session storage
-    // make completed screen
-    // show best time vs time you just got
-    // once you hit flag save current time to storage & load completed level screen
 
     // Starting Platform
     this.startPlatform = this.physics.add.staticGroup();
@@ -195,9 +190,6 @@ class LevelThree extends Phaser.Scene {
   stageComplete = (pinkMonster, flagGroup) => {
     completedGame = true;
     this.pinkMonster.body.enable = false;
-    this.game.sound.stopAll();
-    this.sfx.stageComplete.play();
-
     let bestTimeCookie = Cookies.get("bestTime");
     if (bestTimeCookie === "0") {
       bestTimeCookie = seconds;
@@ -236,15 +228,18 @@ class LevelThree extends Phaser.Scene {
       if (gameData.lives === 0) {
         game.scene.stop("LevelThree");
         game.scene.start("GameOver");
+        this.game.sound.stopAll();
+        this.sfx.gameover.play();
       } else {
         game.scene.start("LevelTwo");
         game.scene.stop("LevelThree");
       }
     }
     if (completedGame) {
-      console.log(completedGame);
       game.scene.stop("LevelThree");
       game.scene.start("GameOver");
+      this.game.sound.stopAll();
+      this.sfx.stageComplete.play();
     }
   }
 }

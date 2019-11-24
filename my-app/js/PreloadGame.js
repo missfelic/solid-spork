@@ -59,6 +59,8 @@ class PreloadGame extends Phaser.Scene {
     this.load.audio("stageComplete", "assets/audio/stageComplete.mp3");
     // Background Music
     this.load.audio("bgMusic", "assets/audio/bgMusic.mp3");
+    // Gameover
+    this.load.audio("gameover", "assets/audio/gameover.mp3");
   }
 
   create() {

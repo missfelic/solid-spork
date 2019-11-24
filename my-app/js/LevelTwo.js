@@ -10,7 +10,8 @@ class LevelTwo extends Phaser.Scene {
     // Sounds
     this.sfx = {
       jumpSound: this.sound.add("jump"),
-      coinSound: this.sound.add("coinSound")
+      coinSound: this.sound.add("coinSound"),
+      gameover: this.sound.add("gameover")
     };
 
     // Sky
@@ -190,6 +191,8 @@ class LevelTwo extends Phaser.Scene {
       if (gameData.lives === 0) {
         game.scene.stop("LevelTwo");
         game.scene.start("GameOver");
+        this.game.sound.stopAll();
+        this.sfx.gameover.play();
       } else {
         game.scene.start("LevelOne");
         game.scene.stop("LevelTwo");
