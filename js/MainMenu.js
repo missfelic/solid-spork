@@ -18,11 +18,8 @@ class MainMenu extends Phaser.Scene {
       fill: "#000"
     });
 
-    // Making Text Interactive
-    playText.setInteractive({ useHandCursor: true });
-
-    // Load Game
-    playText.on("pointerdown", () => {
+    // Load MainMenu
+    this.input.on("pointerdown", () => {
       game.scene.stop("MainMenu");
       game.scene.start("LevelOne");
     });

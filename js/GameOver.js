@@ -53,13 +53,10 @@ class GameOver extends Phaser.Scene {
 
     bestTimeText.setOrigin(0, 0);
 
-    // Making Text Interactive
-    mainMenuText.setInteractive({ useHandCursor: true });
-
     // Load MainMenu
-    mainMenuText.on("pointerdown", () => {
-      game.scene.stop("GameOver");
-      location.reload();
+    this.input.on("pointerdown", () => {
+      game.scene.stop("MainMenu");
+      game.scene.start("LevelOne");
     });
   }
 
