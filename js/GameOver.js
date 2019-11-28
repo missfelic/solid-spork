@@ -55,8 +55,8 @@ class GameOver extends Phaser.Scene {
 
     // Load MainMenu
     this.input.on("pointerdown", () => {
-      game.scene.stop("MainMenu");
-      game.scene.start("LevelOne");
+      game.scene.stop("gameOver");
+      location.reload();
     });
   }
 
