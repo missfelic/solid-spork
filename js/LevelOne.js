@@ -160,10 +160,10 @@ class LevelOne extends Phaser.Scene {
 
   // Collect function
   collectCoin = (pinkMonster, coins) => {
-    if (seconds < 4) {
-      seconds -= 1;
+    if (seconds < 1) {
+      seconds -= 0;
     } else {
-      seconds -= 4;
+      seconds -= 1;
     }
     this.sfx.coinSound.play();
     coins.destroy();
