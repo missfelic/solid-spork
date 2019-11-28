@@ -1,8 +1,13 @@
 let bestTimeText,
   completedGame = false,
+  // Global Swipe Variables
+  deltaX = 0,
+  deltaY = 0,
   game,
   gameOver = false,
   gameOverText,
+  hasTapped = false,
+  hasSwiped = false,
   levelText,
   mainMenuText,
   playText,
@@ -44,5 +49,6 @@ window.onload = function() {
     },
     scene: [PreloadGame, MainMenu, GameOver, LevelOne, LevelTwo, LevelThree]
   };
+
   game = new Phaser.Game(gameConfig);
 };

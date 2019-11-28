@@ -4,6 +4,8 @@ class PreloadGame extends Phaser.Scene {
   }
 
   preload() {
+    // Setting Canvas id
+    this.game.canvas.id = "phaserCanvas";
     // Images //
     //Sky
     this.load.image("sky", "assets/background/layers/sky.png");
