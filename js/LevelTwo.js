@@ -167,47 +167,47 @@ class LevelTwo extends Phaser.Scene {
     if (hasTapped || hasSwiped) {
       startTimer = true;
     }
-    // Mobile Controls
-    const myCanvas = document.getElementById("phaserCanvas");
-    const newHammer = new Hammer.Manager(myCanvas);
+    // // Mobile Controls
+    // const myCanvas = document.getElementById("phaserCanvas");
+    // const newHammer = new Hammer.Manager(myCanvas);
 
-    const onTap = new Hammer.Tap({
-      event: "tap",
-      taps: 1
-    });
+    // const onTap = new Hammer.Tap({
+    //   event: "tap",
+    //   taps: 1
+    // });
 
-    const onSwipe = new Hammer.Swipe({
-      event: "swipe",
-      pointers: 1,
-      threshold: 10
-    });
+    // const onSwipe = new Hammer.Swipe({
+    //   event: "swipe",
+    //   pointers: 1,
+    //   threshold: 10
+    // });
 
-    newHammer.add(onTap);
-    newHammer.add(onSwipe);
+    // newHammer.add(onTap);
+    // newHammer.add(onSwipe);
 
-    // on Tap
-    newHammer.on("tap", e => {
-      hasTapped = true;
-      if (this.pinkMonster.body.touching.down) {
-        this.pinkMonster.setVelocityY(-500);
-        this.sfx.jumpSound.play();
-      }
-    });
+    // // on Tap
+    // newHammer.on("tap", e => {
+    //   hasTapped = true;
+    //   if (this.pinkMonster.body.touching.down) {
+    //     this.pinkMonster.setVelocityY(-500);
+    //     this.sfx.jumpSound.play();
+    //   }
+    // });
 
-    // on Swipe
-    newHammer.on("swipeleft", () => {
-      hasSwiped = true;
-      this.pinkMonster.setVelocityX(-120);
-      this.pinkMonster.anims.play("idle", true);
-      this.pinkMonster.flipX = true;
-    });
+    // // on Swipe
+    // newHammer.on("swipeleft", () => {
+    //   hasSwiped = true;
+    //   this.pinkMonster.setVelocityX(-120);
+    //   this.pinkMonster.anims.play("idle", true);
+    //   this.pinkMonster.flipX = true;
+    // });
 
-    newHammer.on("swiperight", () => {
-      hasSwiped = true;
-      this.pinkMonster.setVelocityX(120);
-      this.pinkMonster.anims.play("idle", true);
-      this.pinkMonster.flipX = false;
-    });
+    // newHammer.on("swiperight", () => {
+    //   hasSwiped = true;
+    //   this.pinkMonster.setVelocityX(120);
+    //   this.pinkMonster.anims.play("idle", true);
+    //   this.pinkMonster.flipX = false;
+    // });
     // Keyboard Inputs
     if (this.cursors.left.isDown) {
       this.pinkMonster.setVelocityX(-120);
