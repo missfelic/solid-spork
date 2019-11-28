@@ -46,37 +46,9 @@ canvas {
   display: none;
 }
 
-.contentContainer {
-  color: #fff;
-  line-height: 1.8;
-  text-align: center;
-  margin: 0 auto;
-  max-width: 600px;
-  width: 100%;
-}
-
-.title {
-  margin: 16px 0 0 0;
-}
-
-.text {
-  margin: 16px 0;
-}
-
 /* Large Screens */
 @media only screen and (min-width: 1025px) {
-  .contentContainer {
-    position: absolute;
-    top: 25%;
-    left: 5%;
-    max-width: 25%;
-  }
-
   .cookiesContainer {
     margin: 18px;
-  }
-
-  .title {
-    margin: 0;
   }
 }

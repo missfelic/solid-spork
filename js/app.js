@@ -30,7 +30,7 @@ gameData = {
 
 window.onload = function() {
   const gameConfig = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 308,
     height: 800,
     pixelArt: true,
