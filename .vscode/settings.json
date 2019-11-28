@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e187652d-ce16-4fe0-84a8-9e49fbdf693a/resourceGroups/solidspork/providers/Microsoft.Web/sites/solidspork",
+    "appService.deploySubpath": ""
+}
